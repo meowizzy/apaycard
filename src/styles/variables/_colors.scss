@@ -1,0 +1,31 @@
+:root {
+  --color-white-rgb: 255, 255, 255;
+  --color-white: rgb(var(--color-white-rgb));
+
+  --color-black-rgb: 0, 0, 0;
+  --color-black: rgb(var(--color-black-rgb));
+
+  --color-primary-rgb: 0, 191, 218;
+  --color-primary: rgb(var(--color-primary-rgb));
+
+  --color-secondary-rgb: 3, 0, 91;
+  --color-secondary: rgb(var(--color-secondary-rgb));
+
+  --color-text-rgb: 138, 148, 166;
+  --color-text: rgb(var(--color-text-rgb));
+
+  --color-text2-rgb: 151, 150, 186;
+  --color-text2: rgb(var(--color-text2-rgb));
+
+  --color-border-rgb: 242, 242, 242;
+  --color-border: rgb(var(--color-border-rgb));
+
+  --color-gray-rgb: 250, 250, 250;
+  --color-gray: rgb(var(--color-gray-rgb));
+
+  --color-light-gray-rgb: 229, 231, 236;
+  --color-light-gray: rgb(var(--color-light-gray-rgb));
+
+  --color-danger-rgb: 255, 82, 82;
+  --color-danger: rgb(var(--color-danger-rgb));
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fac6c291-0621-4094-9513-23657ecf6820" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/images/callbackFormMobile.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/callbackFormMobile.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/slider_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/slider_1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/slider_2.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/slider_2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/slider_3.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/slider_3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/slider_4.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/slider_4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/app/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/modules/callbackForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/modules/callbackForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/modules/mobileSlider.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/modules/mobileSlider.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/modules/servicesListDropDown.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/modules/servicesListDropDown.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/modules/_banner.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/modules/_banner.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/modules/_callbackForm.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/modules/_callbackForm.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/modules/_capabilities.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/modules/_capabilities.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/modules/_footer.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/modules/_footer.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/modules/_header.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/modules/_header.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/modules/_product.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/modules/_product.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scss/modules/_services.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/modules/_services.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template-parts/callback-form.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/template-parts/callback-form.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template-parts/capabilities.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/template-parts/capabilities.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template-parts/footer.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/template-parts/footer.hbs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template-parts/product.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/template-parts/product.hbs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="2ig9Yk1J83rT5QCNh5raPEnfLPn" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/www/webpack-starter",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fac6c291-0621-4094-9513-23657ecf6820" name="Changes" comment="" />
+      <created>1719901402954</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1719901402954</updated>
+      <workItem from="1719901403999" duration="14000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

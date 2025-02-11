@@ -1,0 +1,113 @@
+.modal, .drawer {
+  $self: &;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: background-color var(--transition);
+    background-color: rgba(var(--color-black-rgb), 0);
+  }
+
+  &.opened {
+    pointer-events: all;
+    .modal__backdrop, .drawer__backdrop {
+      background-color: rgba(var(--color-black-rgb), .5);
+    }
+  }
+
+  &__close-button {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    //@media all and (max-width: 800px) {
+    //  top: 10px;
+    //  right: 27px;
+    //  z-index: 1;
+    //}
+    svg {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+  &__content {
+    height: 100%;
+    overflow: auto;
+    max-height: 400px;
+    //@media all and (max-width: 360px) {
+    //  padding: 50px 10px 50px 0;
+    //}
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    &::-webkit-scrollbar-button:end:increment, &::-webkit-scrollbar-button:start:decrement {
+      background: transparent;
+      display: none;
+    }
+    &::-webkit-scrollbar-track-piece {
+      background: transparent;
+    }
+    &::-webkit-scrollbar-track-piece:vertical:start {
+      border-radius: 10px 10px 0 0;
+    }
+    &::-webkit-scrollbar-track-piece:vertical:end {
+      border-radius: 0 0 10px 10px;
+    }
+    &::-webkit-scrollbar-track-piece:horizontal:start {
+      border-radius: 10px 0 0 10px;
+    }
+    &::-webkit-scrollbar-track-piece:horizontal:end {
+      border-radius: 0 10px 10px 0;
+    }
+    &::-webkit-scrollbar-thumb:horizontal, &::-webkit-scrollbar-thumb:vertical {
+      background: #D9D9D9;
+      border-radius: 10px;
+      display: block;
+      height: 100px;
+    }
+  }
+}
+
+.modal {
+  $self: &;
+  &__window {
+    transition: transform var(--transition), opacity var(--transition);
+    opacity: 0;
+    transform: translateY(10px) scale(0.9);
+    background-color: var(--color-white);
+    max-width: 600px;
+    width: 100%;
+    border-radius: var(--radius-sm);
+    padding: 40px;
+    position: relative;
+  }
+  &.opened {
+    #{$self}__window {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+.drawer {
+
+  &__modal-content {
+    overflow-x: hidden !important;
+  }
+}

@@ -1,0 +1,92 @@
+<div class="form">
+    <div class="form__header">
+        <h1 class="form__title">ITicket.uz</h1>
+    </div>
+    <div class="form__body">
+        <div class="form__step" data-step="card">
+            <div class="form__body-title">
+                <span>{{attachCard}}</span>
+            </div>
+            <div class="form__body-error d-none"></div>
+            <form class="form__actions">
+                <div class="form__group">
+                    <div class="form__field">
+                        <label>
+                            <div class="form__field-label">
+                                <span>{{cardNumber}}</span>
+                            </div>
+                            <div class="form__field-card">
+                                <input type="text" name="cardNumber" placeholder="0000 0000 0000 0000" class="input-card">
+                                <input type="text" name="cardExpire" placeholder="{{mmYY}}" class="input-exp">
+                            </div>
+                        </label>
+                    </div>
+<!--                    <div class="form__field">-->
+<!--                        <label>-->
+<!--                            <div class="form__field-label">-->
+<!--                                <span>{{cardCvv}}</span>-->
+<!--                            </div>-->
+<!--                            <input type="text" name="cvv" placeholder="000" size="3" maxlength="3" class="input-cvv">-->
+<!--                        </label>-->
+<!--                    </div>-->
+                </div>
+                <div class="form__group">
+                    <div class="form__field">
+                        <label>
+                            <div class="form__field-label">
+                                <span>{{phoneNumber}}</span>
+                            </div>
+                            <input type="text" name="phone" placeholder="+998" class="input-phone">
+                        </label>
+                    </div>
+                    {{> button title=continue selectors="primary bold"}}
+                </div>
+            </form>
+            <div class="form__publicOffer">
+                {{{publicOffer}}}
+            </div>
+        </div>
+        <div class="form__step" data-step="code">
+            <div class="form__body-title">
+                <span>{{smsConfirmation}}</span>
+            </div>
+            <div class="form__body-desc">
+                {{smsConfirmationDescription}}
+            </div>
+            <form class="form__actions">
+                <div class="form__field">
+                    <label>
+                        <div class="form__field-label">
+                            <span>{{codeFromSms}}</span>
+                        </div>
+                        <div class="form__field-code">
+                            <input type="text" maxlength="1"/>
+                            <input type="text" maxlength="1"/>
+                            <input type="text" maxlength="1"/>
+                            <input type="text" maxlength="1"/>
+                            <input type="text" maxlength="1"/>
+                            <input type="text" maxlength="1"/>
+                        </div>
+                    </label>
+                </div>
+                <div class="form__buttons">
+                    {{> button title=send selectors="clear send"}}
+                    {{> button title=cancel selectors="clear cancel"}}
+                </div>
+            </form>
+        </div>
+        <div class="form__step" data-step="success">
+            Success
+        </div>
+        <div class="form__step" data-step="error">
+            <div class="error-container">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <use xlink:href="#closeIcon"/>
+                </svg>
+                <div class="error-container__title">
+                    <span>{{attachmentError}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
