@@ -21,22 +21,51 @@
     }
   }
 
+  &__title {
+    @media all and (max-width: 768px) {
+      font-size: 25px;
+    }
+
+    @media all and (max-width: 640px) {
+      font-size: 20px;
+    }
+
+    @media all and (max-width: 480px) {
+      font-size: 18px;
+    }
+  }
+
   &__header {
     padding: 30px;
+
+    @media all and (max-width: 640px) {
+      padding: 15px;
+    }
   }
 
   &__body {
     background-color: var(--color-gray);
     padding: 50px;
     border-radius: var(--radius-lg);
-    min-height: 369px;
     display: flex;
     flex-direction: column;
+
+    @media all and (min-width: 641px) {
+      min-height: 369px;
+    }
+
+    @media all and (max-width: 640px) {
+      padding: 30px 15px;
+    }
   }
 
   &__body-error {
     color: var(--color-danger);
     margin-bottom: 10px;
+
+    @media all and (max-width: 640px) {
+      font-size: 13px;
+    }
   }
 
   &__body-desc {
@@ -49,6 +78,11 @@
     font-size: 18px;
     font-weight: 700;
     margin-bottom: 20px;
+
+    @media all and (max-width: 640px) {
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
   }
 
   &__actions {
@@ -58,6 +92,12 @@
     display: none;
     flex-grow: 1;
     flex-direction: column;
+
+    &[data-step="error"], &[data-step="success"] {
+      @media all and (max-width: 640px) {
+        min-height: 200px;
+      }
+    }
 
     &[data-step="code"] {
       max-width: 399px;
@@ -87,12 +127,21 @@
     display: flex;
     align-items: flex-end;
     margin-bottom: 20px;
+
+    @media all and (max-width: 500px) {
+      flex-direction: column;
+      align-items: stretch;
+      row-gap: 15px;
+    }
+
     &:last-child {
       margin-bottom: 0;
     }
 
     #{$self}__field {
-      margin-right: 20px;
+      @media all and (min-width: 501px) {
+        margin-right: 20px;
+      }
 
       &:last-child {
         margin-right: 0;
@@ -141,6 +190,17 @@
         height: 69px;
         font-size: 20px;
         font-weight: 500;
+
+        @media all and (max-width: 640px) {
+          width: calc(100% / 6 - 5px);
+          margin: 0 2.5px;
+          height: auto;
+          aspect-ratio: 1;
+        }
+
+        @media all and (max-width: 480px) {
+          font-size: 14px;
+        }
       }
     }
 
@@ -189,5 +249,9 @@
     margin-top: 20px;
     line-height: 20px;
     font-size: 14px;
+
+    @media all and (max-width: 480px) {
+      font-size: 12px;
+    }
   }
 }
