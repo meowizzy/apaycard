@@ -46,6 +46,12 @@ html {
 
   .container {
     padding: 20px 10px;
+    @media all and (max-width: 960px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-grow: 1;
+    }
   }
 }
 
