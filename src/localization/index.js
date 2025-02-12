@@ -25,18 +25,30 @@ export const redirectPaths = {
     uz: "/uz.html"
 };
 
-export const translate = (ns) => {
+export const translate = (ns, replacementText) => {
     if (typeof ns !== "string") return;
 
     const namespaces = ns.split(".");
 
     if (namespaces.length === 1) {
-        return locales[SITE_LANG][ns];
+        const trans = locales[SITE_LANG][ns];
+
+        if (replacementText) {
+            return trans.replace("[code]", replacementText);
+        }
+
+        return trans;
     }
 
-    return namespaces.reduce((acc, cur) => {
+    const trans = namespaces.reduce((acc, cur) => {
         acc = acc[cur];
 
         return acc;
     }, locales[SITE_LANG]);
+
+    if (replacementText) {
+        return trans.replace("[code]", replacementText);
+    }
+
+    return trans;
 };

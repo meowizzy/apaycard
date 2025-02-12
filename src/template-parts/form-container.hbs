@@ -1,6 +1,6 @@
 <div class="form">
     <div class="form__header">
-        <h1 class="form__title">ITicket.uz</h1>
+        <h1 class="form__title">Прикрепление карты</h1>
     </div>
     <div class="form__body">
         <div class="form__step" data-step="card">
@@ -50,9 +50,7 @@
             <div class="form__body-title">
                 <span>{{smsConfirmation}}</span>
             </div>
-            <div class="form__body-desc">
-                {{smsConfirmationDescription}}
-            </div>
+            <div class="form__body-desc"></div>
             <form class="form__actions">
                 <div class="form__field">
                     <label>
@@ -70,21 +68,28 @@
                     </label>
                 </div>
                 <div class="form__buttons">
-                    {{> button title=send selectors="clear send"}}
+                    {{> button  selectors="clear resend" attr="disabled"}}
                     {{> button title=cancel selectors="clear cancel"}}
                 </div>
             </form>
         </div>
         <div class="form__step" data-step="success">
-            Success
+            <div class="form-container">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <use xlink:href="#checkIcon"/>
+                </svg>
+                <div class="form-container__title">
+                    <span>{{{success.cardActivated}}}</span>
+                </div>
+            </div>
         </div>
         <div class="form__step" data-step="error">
-            <div class="error-container">
+            <div class="form-container">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <use xlink:href="#closeIcon"/>
                 </svg>
-                <div class="error-container__title">
-                    <span>{{attachmentError}}</span>
+                <div class="form-container__title">
+                    <span></span>
                 </div>
             </div>
         </div>

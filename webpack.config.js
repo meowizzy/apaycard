@@ -134,13 +134,13 @@ module.exports = (env) => {
             static: {
                 directory: path.join(__dirname, "./dist"),
             },
-            proxy: {
-                "/api": {
-                    target: "https://erp.smartpos.uz",
-                    secure: false,
-                    changeOrigin: true,
-                },
-            },
+            // proxy: {
+            //     "/api": {
+            //         target: "https://api-dev.a-pay.uz/api",
+            //         secure: false,
+            //         changeOrigin: true,
+            //     },
+            // },
             port: 4000,
             open: true,
             historyApiFallback: true,
