@@ -33,13 +33,16 @@ export const languageSwitcher = () => {
     const handleClickSelectLanguage = (e) => {
         e.preventDefault();
         const target = e.target;
-        const href = target.href;
-
-        if (href) {
-            window.location.href = queryParams ? href + queryParams : href;
-        }
 
         if (target.closest(".languageSwitcher__body .languageSwitcher__item")) {
+            const href = target.href;
+            const path = href.split("/");
+            const pathname = window.location.pathname.replace(/\/[^/]*$/, '');
+
+            if (href) {
+                window.location.href = pathname + (queryParams ? path[path.length - 1] + queryParams : path[path.length - 1]);
+            }
+
             const lang = target.dataset.lang;
 
             if (lang) {
