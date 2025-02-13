@@ -31,6 +31,7 @@ const isValidPhoneNumber = (phoneNumber) => {
 };
 
 const resendCode = () => {
+    sessionStorage.removeItem("countDown");
     return $request({
         url: "/web/v1/bills/card/resend-activation-code",
         method: "POST",
@@ -50,9 +51,25 @@ export const formStepCard = () => {
     const codeStep = document.querySelector("[data-step='code']");
     const resendButton = codeStep.querySelector(".resend");
     const codeStepFormDesc = codeStep.querySelector(".form__body-desc");
+    const countDown = sessionStorage.getItem("countDown");
+
+    const renderCodeStepDesc = () => {
+        codeStepFormDesc.textContent = translate("smsConfirmationDescription", hideNumber({
+            phone: sessionStorage.getItem("phone"),
+            elemsHide: 5,
+            sliceFromBack: 2
+        }));
+    };
 
     const renderCountDown = () => {
-        setCountdown(60, resendButton.children[0], onFinishCountDown);
+        setCountdown({
+            duration: Number(countDown) || 60,
+            dest: resendButton.children[0],
+            onFinish: onFinishCountDown,
+            onUpdate: (time) => {
+                sessionStorage.setItem("countDown", time);
+            },
+        });
     };
 
     const onClickResendButton = async (e) => {
@@ -68,13 +85,11 @@ export const formStepCard = () => {
                 renderCountDown();
                 resendButton.removeEventListener("click", onClickResendButton);
                 resendButton.setAttribute("disabled", "true");
-            } else if (response.status === 400) {
+            } else {
                 const res = await response.json();
 
                 if (res?.detail) {
                     throw new Error(res?.detail);
-                } else {
-                    throw new Error(translate("errors.smsAlreadySent"));
                 }
             }
         } catch (e) {
@@ -88,7 +103,15 @@ export const formStepCard = () => {
         resendButton.removeAttribute("disabled");
         resendButton.children[0].textContent = translate("resend");
         resendButton.addEventListener("click", onClickResendButton);
+        sessionStorage.removeItem("countDown");
     };
+
+    if (countDown) {
+        renderCodeStepDesc();
+        renderCountDown();
+    } else {
+        onFinishCountDown();
+    }
 
     const sendData = async (data) => {
         submitButton.classList.add("loading");
@@ -117,16 +140,14 @@ export const formStepCard = () => {
             if (response.status === 200) {
                 form.reset();
                 renderCountDown();
+                renderCodeStepDesc();
                 showStep("code");
-                codeStepFormDesc.textContent = translate("smsConfirmationDescription", hideNumber({
-                    phone: phone.replace(/[-()]+/g, ' '),
-                    elemsHide: 5,
-                    sliceFromBack: 2
-                }));
-            } else if (response.status === 400) {
-                throw new Error(translate("errors.timeoutException"));
-            } else if (response.status >= 401 && response.status <= 403) {
-                throw new Error(translate("errors.incorrectDataEntered"));
+            } else {
+                const res = await response.json();
+
+                if (res?.detail) {
+                    throw new Error(res?.detail);
+                }
             }
 
         } catch (e) {
@@ -149,6 +170,8 @@ export const formStepCard = () => {
 
         if (isPhoneInputValid && isCardNumberInputValid && isCardExpireInputValid) {
             error.classList.add("d-none");
+
+            sessionStorage.setItem("phone", phone.replace(/[-()]+/g, ' '));
 
             sendData({
                 phone,

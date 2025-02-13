@@ -1,15 +1,19 @@
-import Toastify from "toastify-js";
+import ToastifyEs from "toastify-js/src/toastify-es";
 
 const toastifyOptions = {
     close: true,
     duration: 4000,
-    gravity: top,
+    gravity: "top",
     position: "right",
-    stopOnFocus: true
+    stopOnFocus: true,
+    offset: {
+        x: 15,
+        y: 15
+    }
 };
 
 export const toastError = (text) => {
-    Toastify({
+    ToastifyEs({
         ...toastifyOptions,
         text,
         style: {
@@ -20,7 +24,7 @@ export const toastError = (text) => {
 };
 
 export const toastSuccess = (text) => {
-    Toastify({
+    ToastifyEs({
         ...toastifyOptions,
         text,
         style: {
@@ -31,7 +35,7 @@ export const toastSuccess = (text) => {
 };
 
 export const toastWarning = (text) => {
-    Toastify({
+    ToastifyEs({
         ...toastifyOptions,
         text,
         style: {
@@ -42,7 +46,7 @@ export const toastWarning = (text) => {
 };
 
 export const toastInfo = (text) => {
-    Toastify({
+    ToastifyEs({
         ...toastifyOptions,
         text,
         style: {

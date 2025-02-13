@@ -7,14 +7,23 @@ export const languageSwitcher = () => {
     const langSwitcherOpenerIcon = document.querySelector(".languageSwitcher__head .languageSwitcher__icon");
     const langSwitcherItems = document.querySelectorAll(".languageSwitcher__body .languageSwitcher__item");
     const localStorageLang = localStorage.getItem(LOCAL_STORAGE_LANG_KEY);
+    const location = window.location;
+    const pathname = location.pathname;
+    const firstPath = pathname.split("/")[1];
 
     if (!langSwitcherOpener) return;
 
     if (localStorageLang) {
         if (SITE_LANG !== localStorageLang && !location.pathname.includes("textolite")) {
-            window.location.href = redirectPaths[localStorageLang];
+            location.href = "/" + firstPath + redirectPaths[localStorageLang] + (queryParams || "");
         }
     }
+
+    langSwitcherItems.forEach((item) => {
+       if (item.href) {
+           item.href = location.origin + "/" + firstPath + item.href.replace(location.origin, "")  + (queryParams || "");
+       }
+    });
 
     const currFlagItem = Array.from(langSwitcherItems).find((item) => item.dataset.lang === SITE_LANG);
 
@@ -31,18 +40,9 @@ export const languageSwitcher = () => {
     };
 
     const handleClickSelectLanguage = (e) => {
-        e.preventDefault();
         const target = e.target;
 
         if (target.closest(".languageSwitcher__body .languageSwitcher__item")) {
-            const href = target.href;
-            const path = href.split("/");
-            const pathname = window.location.pathname.replace(/\/[^/]*$/, '');
-
-            if (href) {
-                window.location.href = pathname + (queryParams ? path[path.length - 1] + queryParams : path[path.length - 1]);
-            }
-
             const lang = target.dataset.lang;
 
             if (lang) {

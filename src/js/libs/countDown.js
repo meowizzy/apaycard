@@ -1,4 +1,10 @@
-export const setCountdown = (duration, dest, callback) => {
+export const setCountdown = (props) => {
+    const {
+        duration,
+        dest,
+        onFinish,
+        onUpdate,
+    } = props;
     let timeLeft = duration;
 
     function formatTime(seconds) {
@@ -24,9 +30,10 @@ export const setCountdown = (duration, dest, callback) => {
         dest.textContent = formatTime(timeLeft);
         if (timeLeft > 0) {
             timeLeft--;
+            onUpdate(timeLeft);
             setTimeout(updateTimer, 1000);
         } else {
-            callback();
+            onFinish();
         }
     }
 

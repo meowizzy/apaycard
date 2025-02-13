@@ -3,6 +3,7 @@ import { showStep } from "../helpers/showStep";
 import { toastError, toastSuccess } from "../helpers/toastify";
 import { Otp } from "./otpClass";
 import {$request} from "../libs/request";
+import {setCountdown} from "../libs/countDown";
 
 export const formStepCode = () => {
     const step = document.querySelector("[data-step='code']");
@@ -21,6 +22,7 @@ export const formStepCode = () => {
 
     const sendRequest = async () => {
         const otpCode = otpCodeInput.value;
+        otpCodeField.classList.add("disabled");
 
         if (otpCode.length !== 6) {
             otpCodeField.classList.add("form__field--error");
@@ -35,7 +37,6 @@ export const formStepCode = () => {
         try {
             otpCodeField.classList.remove("form__field--error");
             errorElement.remove();
-            form.querySelector(".form__field").classList.add("disabled");
 
             const response = await $request({
                 url: "/web/v1/bills/card/activate",
@@ -49,29 +50,25 @@ export const formStepCode = () => {
                 })
             });
 
+            const res = await response.json();
+
             if (response.status === 200) {
                 toastSuccess(translate("success.cardActivated"));
                 showStep("success");
             } else if (response.status === 400) {
                 otpCodeField.classList.add("form__field--error");
-                errorElement.textContent = translate("errors.incorrectCode");
+                errorElement.textContent = res?.detail;
                 otpCodeLabel.append(errorElement);
-                throw new Error({
-                    status: response.status,
-                    message: translate("errors.incorrectCode")
-                });
+                throw new Error(res?.detail);
             } else if (response.status === 401 || response.status === 403) {
-                throw new Error({
-                    status: response.status,
-                    message: translate("warnings.cardAlreadyActivated")
-                });
+                throw new Error(res?.detail);
             }
         } catch (e) {
             if (e.status) {
                 toastError(e.message);
             }
         } finally {
-            form.querySelector(".form__field").classList.remove("disabled");
+            otpCodeField.classList.remove("disabled");
         }
     };
 

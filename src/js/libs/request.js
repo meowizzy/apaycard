@@ -1,10 +1,16 @@
-import { BASE_URL } from "../app/constants";
+import {BASE_URL, SITE_LANG} from "../app/constants";
 import { translate } from "../../localization";
 
 export const $request = async (props) => {
-    const { url, ...restProps } = props;
+    const { url, headers, ...restProps } = props;
 
-    const response = await fetch(BASE_URL + url, restProps);
+    const response = await fetch(BASE_URL + url, {
+        headers: {
+            "lang": SITE_LANG,
+            ...headers
+        },
+        ...restProps
+    });
 
     if (response?.status === 429) {
         throw new Error(translate("errors.tooManyRequests"));

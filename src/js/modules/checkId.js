@@ -10,6 +10,7 @@ export const checkId = async () => {
     const pageLoader = document.querySelector(".page-loader");
     const rootContainer = document.querySelector(".wrapper .container");
     const formTitle = document.querySelector(".form__title");
+    const stepCode = sessionStorage.getItem("step");
 
     if (!id) {
         pageLoader.classList.add("d-none");
@@ -17,6 +18,10 @@ export const checkId = async () => {
         renderError(translate("errors.idIsNotEntered"));
 
         return;
+    }
+
+    if (sessionStorage.getItem("extId")) {
+        showStep(stepCode || "card");
     }
 
     try {
