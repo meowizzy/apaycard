@@ -11,6 +11,15 @@ input, textarea, select {
   letter-spacing: 1px;
   transition: var(--transition);
 
+  @media all and (max-width: 640px) {
+    padding: 15px 10px;
+    border-radius: var(--radius-sm);
+  }
+
+  @media all and (max-width: 480px) {
+    font-size: 12px;
+  }
+
   &:focus {
     border-color: var(--color-primary);
   }
@@ -18,5 +27,9 @@ input, textarea, select {
   &::placeholder {
     color: var(--color-text);
     font-size: 16px;
+
+    @media all and (max-width: 480px) {
+      font-size: 12px;
+    }
   }
 }
