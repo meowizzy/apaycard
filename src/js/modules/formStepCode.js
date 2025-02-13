@@ -1,10 +1,8 @@
 import { translate } from "../../localization";
 import { showStep } from "../helpers/showStep";
-import { hideNumber } from "../helpers/hideNumber";
-import { BASE_URL } from "../app/constants";
 import { toastError, toastSuccess } from "../helpers/toastify";
-import { renderError } from "../helpers/renderError";
 import { Otp } from "./otpClass";
+import {$request} from "../libs/request";
 
 export const formStepCode = () => {
     const step = document.querySelector("[data-step='code']");
@@ -15,22 +13,13 @@ export const formStepCode = () => {
         return;
     }
 
-    const formDesc = step.querySelector(".form__body-desc");
-    const cancelButton = form.querySelector(".cancel");
-    const phoneFromSessionStorage = sessionStorage.getItem("phone");
-
     const otpInstance = new Otp(".form__field-code");
-
-    formDesc.textContent = translate("smsConfirmationDescription", hideNumber({
-        phone: phoneFromSessionStorage,
-        elemsHide: 5,
-        sliceFromBack: 2
-    }));
+    const otpCodeInput = form.querySelector("input[name='otpValue']");
+    const otpCodeField = otpCodeInput.closest(".form__field");
+    const otpCodeLabel = otpCodeField.querySelector(".form__field-label");
+    const cancelButton = form.querySelector(".cancel");
 
     const sendRequest = async () => {
-        const otpCodeInput = form.querySelector("input[name='otpValue']");
-        const otpCodeField = otpCodeInput.closest(".form__field");
-        const otpCodeLabel = otpCodeField.querySelector(".form__field-label");
         const otpCode = otpCodeInput.value;
 
         if (otpCode.length !== 6) {
@@ -44,9 +33,12 @@ export const formStepCode = () => {
         errorElement.remove();
 
         try {
+            otpCodeField.classList.remove("form__field--error");
+            errorElement.remove();
             form.querySelector(".form__field").classList.add("disabled");
 
-            const response = await fetch(`${BASE_URL}/web/v1/bills/card/activate`, {
+            const response = await $request({
+                url: "/web/v1/bills/card/activate",
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -60,7 +52,15 @@ export const formStepCode = () => {
             if (response.status === 200) {
                 toastSuccess(translate("success.cardActivated"));
                 showStep("success");
-            } else if (response.status === 400 || response.status === 401 || response.status === 403) {
+            } else if (response.status === 400) {
+                otpCodeField.classList.add("form__field--error");
+                errorElement.textContent = translate("errors.incorrectCode");
+                otpCodeLabel.append(errorElement);
+                throw new Error({
+                    status: response.status,
+                    message: translate("errors.incorrectCode")
+                });
+            } else if (response.status === 401 || response.status === 403) {
                 throw new Error({
                     status: response.status,
                     message: translate("warnings.cardAlreadyActivated")
@@ -69,8 +69,6 @@ export const formStepCode = () => {
         } catch (e) {
             if (e.status) {
                 toastError(e.message);
-            } else {
-                renderError(translate("errors.attachmentError"));
             }
         } finally {
             form.querySelector(".form__field").classList.remove("disabled");
@@ -85,6 +83,9 @@ export const formStepCode = () => {
     otpInstance.onFilled((isFilled) => {
         if (isFilled) {
             sendRequest();
+        } else {
+            otpCodeField.classList.remove("form__field--error");
+            errorElement?.remove();
         }
     });
 

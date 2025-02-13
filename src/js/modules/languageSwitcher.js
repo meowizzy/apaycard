@@ -2,12 +2,11 @@ import { LOCAL_STORAGE_LANG_KEY, SITE_LANG } from "../app/constants";
 import { redirectPaths } from "../../localization";
 
 export const languageSwitcher = () => {
+    const queryParams = window.location.search;
     const langSwitcherOpener = document.querySelector(".languageSwitcher__head .languageSwitcher__item");
     const langSwitcherOpenerIcon = document.querySelector(".languageSwitcher__head .languageSwitcher__icon");
     const langSwitcherItems = document.querySelectorAll(".languageSwitcher__body .languageSwitcher__item");
     const localStorageLang = localStorage.getItem(LOCAL_STORAGE_LANG_KEY);
-
-    console.log(localStorageLang)
 
     if (!langSwitcherOpener) return;
 
@@ -32,7 +31,13 @@ export const languageSwitcher = () => {
     };
 
     const handleClickSelectLanguage = (e) => {
+        e.preventDefault();
         const target = e.target;
+        const href = target.href;
+
+        if (href) {
+            window.location.href = queryParams ? href + queryParams : href;
+        }
 
         if (target.closest(".languageSwitcher__body .languageSwitcher__item")) {
             const lang = target.dataset.lang;

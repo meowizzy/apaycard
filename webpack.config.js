@@ -111,7 +111,7 @@ module.exports = (env) => {
                     chunks: ["main"],
                     minify: false,
                     templateParameters: Object.assign(tpl.data,{
-                        title: "ERP Smartpos",
+                        title: "A-PAY CARD",
                         lang: key
                     })
                 })

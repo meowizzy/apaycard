@@ -1,7 +1,7 @@
 import { showStep } from "../helpers/showStep";
-import { BASE_URL } from "../app/constants";
 import { translate } from "../../localization";
 import { renderError } from "../helpers/renderError";
+import {$request} from "../libs/request";
 
 export const checkId = async () => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -20,7 +20,9 @@ export const checkId = async () => {
     }
 
     try {
-        const response = await fetch(`${BASE_URL}/web/v1/bills/card/check/${id}`);
+        const response = await $request({
+            url: `/web/v1/bills/card/check/${id}`
+        });
 
         if (response.status === 200) {
             const data = await response.json();
@@ -31,12 +33,8 @@ export const checkId = async () => {
             sessionStorage.setItem("extId", extId);
 
             showStep("card");
-        } else if (response.status === 400 || response.status === 429 || response.status === 403) {
+        } else if (response.status === 400 || response.status === 403) {
             throw new Error(translate("errors.incorrectId"));
-        } else if (response.status >= 500) {
-            throw new Error(translate("errors.serverSideError"));
-        } else {
-            throw new Error(translate("errors.errorHappened"));
         }
     } catch (e) {
         renderError(e.message);

@@ -3,6 +3,8 @@ import { showStep } from "../helpers/showStep";
 import { translate } from "../../localization";
 import {toastError, toastSuccess} from "../helpers/toastify";
 import { setCountdown } from "../libs/countDown";
+import {hideNumber} from "../helpers/hideNumber";
+import {$request} from "../libs/request";
 
 const cardCodes = [
     8600,
@@ -28,8 +30,9 @@ const isValidPhoneNumber = (phoneNumber) => {
     return phoneNumber.length === 19;
 };
 
-const resendCode = async () => {
-    await fetch(`${BASE_URL}/web/v1/bills/card/resend-activation-code`, {
+const resendCode = () => {
+    return $request({
+        url: "/web/v1/bills/card/resend-activation-code",
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -46,9 +49,10 @@ export const formStepCard = () => {
     const error = form.parentElement.querySelector(".form__body-error");
     const codeStep = document.querySelector("[data-step='code']");
     const resendButton = codeStep.querySelector(".resend");
+    const codeStepFormDesc = codeStep.querySelector(".form__body-desc");
 
     const renderCountDown = () => {
-        setCountdown(30, resendButton.children[0], onFinishCountDown);
+        setCountdown(60, resendButton.children[0], onFinishCountDown);
     };
 
     const onClickResendButton = async (e) => {
@@ -57,14 +61,22 @@ export const formStepCard = () => {
         try {
             resendButton.classList.add("loading");
 
-            await resendCode();
+            const response = await resendCode();
 
-            toastSuccess(translate("success.codeSent"));
+            if (response.status === 200) {
+                toastSuccess(translate("success.codeSent"));
+                renderCountDown();
+                resendButton.removeEventListener("click", onClickResendButton);
+                resendButton.setAttribute("disabled", "true");
+            } else if (response.status === 400) {
+                const res = await response.json();
 
-            renderCountDown();
-
-            resendButton.removeEventListener("click", onClickResendButton);
-            resendButton.setAttribute("disabled");
+                if (res?.detail) {
+                    throw new Error(res?.detail);
+                } else {
+                    throw new Error(translate("errors.smsAlreadySent"));
+                }
+            }
         } catch (e) {
             toastError(e.message);
         } finally {
@@ -80,7 +92,6 @@ export const formStepCard = () => {
 
     const sendData = async (data) => {
         submitButton.classList.add("loading");
-        renderCountDown();
 
         const {
             phone,
@@ -89,7 +100,8 @@ export const formStepCard = () => {
         } = data;
 
         try {
-            const response = await fetch(`${BASE_URL}/web/v1/bills/card`, {
+            const response = await $request({
+                url: "/web/v1/bills/card",
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -103,9 +115,14 @@ export const formStepCard = () => {
             });
 
             if (response.status === 200) {
-                sessionStorage.setItem("phone", phone.replace(/[-()]+/g, ' '));
                 form.reset();
+                renderCountDown();
                 showStep("code");
+                codeStepFormDesc.textContent = translate("smsConfirmationDescription", hideNumber({
+                    phone: phone.replace(/[-()]+/g, ' '),
+                    elemsHide: 5,
+                    sliceFromBack: 2
+                }));
             } else if (response.status === 400) {
                 throw new Error(translate("errors.timeoutException"));
             } else if (response.status >= 401 && response.status <= 403) {
