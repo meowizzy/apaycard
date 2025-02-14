@@ -22,6 +22,9 @@ export const checkId = async () => {
 
     if (sessionStorage.getItem("extId")) {
         showStep(stepCode || "card");
+        pageLoader.classList.add("d-none");
+        rootContainer.classList.remove("d-none");
+        return;
     }
 
     try {

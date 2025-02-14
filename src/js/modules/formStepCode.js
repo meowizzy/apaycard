@@ -9,6 +9,7 @@ export const formStepCode = () => {
     const step = document.querySelector("[data-step='code']");
     const form = step.querySelector("form");
     const errorElement = document.createElement("span");
+    errorElement.classList.add(".error");
 
     if (!form) {
         return;

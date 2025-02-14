@@ -50,6 +50,7 @@ export const formStepCard = () => {
     const error = form.parentElement.querySelector(".form__body-error");
     const codeStep = document.querySelector("[data-step='code']");
     const resendButton = codeStep.querySelector(".resend");
+    const codeStepFormField = codeStep.querySelector(".form__field");
     const codeStepFormDesc = codeStep.querySelector(".form__body-desc");
     const countDown = sessionStorage.getItem("countDown");
 
@@ -74,6 +75,15 @@ export const formStepCard = () => {
 
     const onClickResendButton = async (e) => {
         e.preventDefault();
+
+        codeStepFormField.classList.remove("form__field--error");
+        codeStep.querySelector("form").reset();
+
+        const codeStemFormFieldErrorMessage = codeStepFormField.querySelector(".error");
+
+        if (codeStemFormFieldErrorMessage) {
+            codeStemFormFieldErrorMessage.remove();
+        }
 
         try {
             resendButton.classList.add("loading");
