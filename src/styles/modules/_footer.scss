@@ -11,6 +11,12 @@
     margin-top: 20px;
   }
 
+  &__middle {
+    a {
+      display: flex;
+    }
+  }
+
   a {
     color: var(--color-secondary);
 

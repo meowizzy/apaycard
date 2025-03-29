@@ -1,40 +1,46 @@
 {
-  "attachCard": "Прикрепить карту",
-  "cardNumber": "Номер карты",
+  "title": "A-Pay: kartani biriktirish",
+  "attachCard": "Kartani biriktirish",
+  "cardNumber": "Karta raqami",
   "cardCvv": "CVV",
-  "phoneNumber": "Номер телефона",
-  "continue": "Продолжить",
-  "mmYY": "ММ / ГГ",
-  "publicOffer": "Нажимая кнопку «\u200EПродолжить», я подтверждаю, что ознакомлен(а) с условиями <a href='https://a-pay.uz/wp-content/uploads/2024/12/oferta-klienty-3-2new.pdf'>публичной оферты</a> об использовании платежного сервиса «A-PAY» и безоговорочно принимаю их. Также я соглашаюсь на приобретение электронных денежных средств в соответствии с указанными условиями.",
-  "publicOffer_text": "Публичная оферта",
-  "helpDesk": "Служба поддержки",
-  "smsConfirmation": "СМС подтверждение",
-  "smsConfirmationDescription": "Для подтверждения телефона отправили 6-значный код\n на [code]. Вводя код СМС подтверждения, вы\n даете согласие на прикрепление карты",
-  "codeFromSms": "Код из СМС",
-  "publicOfferText": "Публичная оферта",
-  "support": "Служба поддержки",
+  "phoneNumber": "Telefon raqami",
+  "continue": "Davom etish",
+  "mmYY": "MM / YY",
+  "cardAttachment": "Kartani biriktirish",
+  "publicOffer": "«Davom etish» tugmasini bosish orqali, men «A-PAY» to‘lov xizmatida foydalanish bo‘yicha <a href='https://a-pay.uz/wp-content/uploads/2024/12/oferta-klienty-3-2new.pdf'>ommaviy oferta shartlari</a> bilan tanishganimni va ularni shubhasiz qabul qilishimni tasdiqlayman. Shuningdek, ushbu shartlar bo‘yicha elektron pullarni sotib olishga rozilik beraman.",
+  "publicOffer_text": "Ommaviy oferta",
+  "helpDesk": "Qo‘llab-quvvatlash xizmati",
+  "smsConfirmation": "SMS tasdiqlash",
+  "smsConfirmationDescription": "Telefonni tasdiqlash uchun 6 raqamli kod [code] raqamiga yuborildi. SMS kodi kiritilganda, siz kartani biriktirishga rozilik berasiz.",
+  "codeFromSms": "SMS kodi",
+  "publicOfferText": "Ommaviy oferta",
+  "support": "Qo‘llab-quvvatlash xizmati",
   "errors": {
-    "incorrectCode": "Неверный код",
-    "incorrectId": "Неверный идентификатор или срок действия идентификатора истёк",
-    "attachmentError": "Ошибка прикрепления",
-    "timeoutException": "Срок действия идентификатора истёк или карта уже была добавлена ранее",
-    "errorHappened": "Произошла неизвестная ошибка",
-    "serverSideError": "Произошла ошибка на сервере",
-    "incorrectDataEntered": "Проверьте корректность введённых данных",
-    "idIsNotEntered": "Не указан идентификатор операции",
-    "tooManyRequests": "Слишком много запросов. Пожалуйста, попробуйте позже.",
-    "smsAlreadySent": "СМС с кодом ранее уже был отправлен"
+    "incorrectCode": "Noto‘g‘ri SMS kodi kiritildi",
+    "incorrectId": "Noto‘g‘ri identifikator yoki uning amal qilish muddati tugagan",
+    "attachmentError": "Biriktirishda xatolik",
+    "timeoutException": "Identifikatorning amal qilish muddati tugagan yoki karta avval biriktirilgan",
+    "errorHappened": "Noma'lum xato yuz berdi",
+    "serverSideError": "Serverda xato yuz berdi",
+    "incorrectDataEntered": "Kiritilgan ma'lumotlarni to‘g‘riligini tekshiring",
+    "idIsNotEntered": "Operatsiya identifikatori ko‘rsatilmagan",
+    "tooManyRequests": "Juda ko‘p so‘rovlar. Iltimos, keyinroq urinib ko‘ring.",
+    "smsAlreadySent": "SMS kodi avval yuborilgan",
+    "limitOfAttemptsExceeded": "Urinishlar chegarasidan o‘tildi. Keyinroq qayta urinib ko‘ring."
   },
   "validateErrors": {
-    "checkEnteredData": "Проверьте корректность введённых данных."
+    "checkEnteredData": "Kiritilgan ma'lumotlarni to‘g‘riligini tekshiring.",
+    "cardExpIncorrect": "Karta muddati noto‘g‘ri",
+    "cardNumberIncorrect": "Karta raqami noto‘g‘ri",
+    "phoneNumberIncorrect": "Telefon raqami noto‘g‘ri"
   },
   "warnings": {
-    "cardAlreadyActivated": "Карта ранее была привязана или срок действия кода истёк"
+    "cardAlreadyActivated": "Karta avval biriktirilgan yoki kodning amal qilish muddati tugagan"
   },
   "success": {
-    "cardActivated": "Карта успешно привязана",
-    "codeSent": "Код успешно отправлен на Ваш номер"
+    "cardActivated": "Karta muvaffaqiyatli biriktirildi(qo‘shildi)",
+    "codeSent": "Kod telefon raqamingizga muvaffaqiyatli yuborildi"
   },
-  "resend": "Отправить код повторно",
-  "cancel": "Отмена"
+  "resend": "Kodni qayta yuborish",
+  "cancel": "Bekor qilish"
 }

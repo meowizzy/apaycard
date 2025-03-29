@@ -5,9 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>A-PAY CARD</title>
+    <title>A-Pay: kartani biriktirish</title>
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon.png">
-<link href="css/bundle.css?ver=1739455279188" rel="stylesheet"></head>
+<link href="css/bundle.css?ver=1743168035483" rel="stylesheet"></head>
 <body>
     <svg style="position: absolute; top: -1000px; left: -1000px; pointer-events: none; opacity: 0">
         <!--LOGO-->
@@ -185,12 +185,12 @@
             
             <div class="form">
                 <div class="form__header">
-                    <h1 class="form__title">Прикрепление карты</h1>
+                    <h1 class="form__title">Kartani biriktirish</h1>
                 </div>
                 <div class="form__body">
                     <div class="form__step" data-step="card">
                         <div class="form__body-title">
-                            <span>Прикрепить карту</span>
+                            <span>Kartani biriktirish</span>
                         </div>
                         <div class="form__body-error d-none"></div>
                         <form class="form__actions">
@@ -198,11 +198,11 @@
                                 <div class="form__field">
                                     <label>
                                         <div class="form__field-label">
-                                            <span>Номер карты</span>
+                                            <span>Karta raqami</span>
                                         </div>
                                         <div class="form__field-card">
                                             <input type="text" name="cardNumber" placeholder="0000 0000 0000 0000" class="input-card">
-                                            <input type="text" name="cardExpire" placeholder="ММ / ГГ" class="input-exp">
+                                            <input type="text" name="cardExpire" placeholder="MM / YY" class="input-exp">
                                         </div>
                                     </label>
                                 </div>
@@ -219,42 +219,42 @@
                                 <div class="form__field">
                                     <label>
                                         <div class="form__field-label">
-                                            <span>Номер телефона</span>
+                                            <span>Telefon raqami</span>
                                         </div>
                                         <input type="text" name="phone" placeholder="+998" class="input-phone">
                                     </label>
                                 </div>
-                                    <button class="lp-button primary bold" ><span>Продолжить</span></button>
+                                    <button class="lp-button primary bold" ><span>Davom etish</span></button>
                             </div>
                         </form>
                         <div class="form__publicOffer">
-                            Нажимая кнопку «‎Продолжить», я подтверждаю, что ознакомлен(а) с условиями <a href='https://a-pay.uz/wp-content/uploads/2024/12/oferta-klienty-3-2new.pdf'>публичной оферты</a> об использовании платежного сервиса «A-PAY» и безоговорочно принимаю их. Также я соглашаюсь на приобретение электронных денежных средств в соответствии с указанными условиями.
+                            «Davom etish» tugmasini bosish orqali, men «A-PAY» to‘lov xizmatida foydalanish bo‘yicha <a href='https://a-pay.uz/wp-content/uploads/2024/12/oferta-klienty-3-2new.pdf'>ommaviy oferta shartlari</a> bilan tanishganimni va ularni shubhasiz qabul qilishimni tasdiqlayman. Shuningdek, ushbu shartlar bo‘yicha elektron pullarni sotib olishga rozilik beraman.
                         </div>
                     </div>
                     <div class="form__step" data-step="code">
                         <div class="form__body-title">
-                            <span>СМС подтверждение</span>
+                            <span>SMS tasdiqlash</span>
                         </div>
                         <div class="form__body-desc"></div>
                         <form class="form__actions">
                             <div class="form__field">
                                 <label>
                                     <div class="form__field-label">
-                                        <span>Код из СМС</span>
+                                        <span>SMS kodi</span>
                                     </div>
                                     <div class="form__field-code">
-                                        <input type="text" maxlength="1" autocomplete="onetime-code"/>
-                                        <input type="text" maxlength="1" autocomplete="onetime-code"/>
-                                        <input type="text" maxlength="1" autocomplete="onetime-code"/>
-                                        <input type="text" maxlength="1" autocomplete="onetime-code"/>
-                                        <input type="text" maxlength="1" autocomplete="onetime-code"/>
-                                        <input type="text" maxlength="1" autocomplete="onetime-code"/>
+                                        <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
+                                        <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
+                                        <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
+                                        <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
+                                        <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
+                                        <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
                                     </div>
                                 </label>
                             </div>
                             <div class="form__buttons">
-                                    <button class="lp-button clear resend" disabled><span>A-PAY CARD</span></button>
-                                    <button class="lp-button clear cancel" ><span>Отмена</span></button>
+                                    <button class="lp-button clear resend" disabled><span>A-Pay: kartani biriktirish</span></button>
+                                    <button class="lp-button clear cancel" ><span>Bekor qilish</span></button>
                             </div>
                         </form>
                     </div>
@@ -264,7 +264,7 @@
                                 <use xlink:href="#checkIcon"/>
                             </svg>
                             <div class="form-container__title">
-                                <span>Карта успешно привязана</span>
+                                <span>Karta muvaffaqiyatli biriktirildi(qo‘shildi)</span>
                             </div>
                         </div>
                     </div>
@@ -281,15 +281,17 @@
                 </div>
             </div>            <footer class="footer">
                 <div class="footer__left">
-                    <a href="https://a-pay.uz/wp-content/uploads/2024/12/oferta-klienty-3-2new.pdf">Публичная оферта</a>
+                    <a href="https://a-pay.uz/wp-content/uploads/2024/12/oferta-klienty-3-2new.pdf">Ommaviy oferta</a>
                 </div>
                 <div class="footer__middle">
-                    <svg width="52" height="20" viewBox="0 0 52 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <use xlink:href="#logoPci"/>
-                    </svg>
+                    <a href="https://a-pay.uz/wp-content/themes/apay/images/icons/cert.png">
+                        <svg width="52" height="20" viewBox="0 0 52 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <use xlink:href="#logoPci"/>
+                        </svg>
+                    </a>
                 </div>
                 <div class="footer__right">
-                    <a href="https://a-pay.uz/contacts">Служба поддержки</a>
+                    <a href="https://a-pay.uz/contacts">Qo‘llab-quvvatlash xizmati</a>
                 </div>
             </footer>        </div>
     </div>
@@ -297,5 +299,5 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <use xlink:href="#spinner"/>
         </svg>
-    </div><script src="js/bundle.min.js?ver=1739455278931"></script></body>
+    </div><script src="js/bundle.min.js?ver=1743168035231"></script></body>
 </html>

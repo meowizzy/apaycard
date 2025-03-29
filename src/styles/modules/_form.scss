@@ -153,6 +153,14 @@
   &__field {
     flex-grow: 1;
 
+    span:first-child {
+      flex-shrink: 0;
+    }
+
+    .error {
+      text-align: right;
+    }
+
     &.disabled {
       opacity: .6;
       pointer-events: none;
@@ -226,6 +234,16 @@
       align-items: center;
       justify-content: space-between;
       font-weight: 500;
+
+      @media all and (max-width: 640px) {
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 7px;
+
+        span {
+          text-align: left !important;
+        }
+      }
     }
 
     &-error {

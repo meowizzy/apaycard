@@ -3,28 +3,43 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const uzTemplateData = require("./src/localization/uz.json");
-const ruTemplateData = require("./src/localization/ru.json");
-const cuzTemplateData = require("./src/localization/cuz.json");
+const uzLocales = require("./src/localization/uz.json");
+const ruLocales = require("./src/localization/ru.json");
+const cuzLocales = require("./src/localization/cuz.json");
 
-const templates = {
+const appTypes = {
+    CARD_ATTACHMENT: {
+        entry: path.resolve(__dirname, "src", "./app-card-attachment/index.js"),
+        template: path.resolve(__dirname, "src", "./app-card-attachment/index.hbs"),
+        output: "build-card-attachment"
+    },
+    PAYMENT: {
+        entry: path.resolve(__dirname, "src", "./app-payment/index.js"),
+        template: path.resolve(__dirname, "src", "./app-payment/index.hbs"),
+        output: "build-payment"
+    }
+};
+
+const locales = {
     ru: {
         name: "index",
-        data: ruTemplateData,
+        data: ruLocales,
     },
     uz: {
         name: "uz",
-        data: uzTemplateData,
+        data: uzLocales,
     },
     cuz: {
         name: "cuz",
-        data: cuzTemplateData
+        data: cuzLocales
     }
-}
+};
 
 module.exports = (env) => {
     const mode = env.mode || "development";
     const isDev = mode === "development";
+    const isProd = !isDev;
+    const appType = env.appType || appTypes.CARD_ATTACHMENT;
     const target = isDev ? "web" : "browserslist";
     const devtool = isDev ? "source-map" : undefined;
 
@@ -103,7 +118,7 @@ module.exports = (env) => {
             ]
         },
         plugins: [
-            ...Object.entries(templates).map(([key, tpl]) => {
+            ...Object.entries(locales).map(([key, tpl]) => {
                 return new HtmlWebpackPlugin({
                     template: path.resolve(__dirname, "src", `index.hbs`),
                     filename: `${tpl.name}.html`,
@@ -111,7 +126,7 @@ module.exports = (env) => {
                     chunks: ["main"],
                     minify: false,
                     templateParameters: Object.assign(tpl.data,{
-                        title: "A-PAY CARD",
+                        title: tpl.data.title,
                         lang: key
                     })
                 })
@@ -119,10 +134,9 @@ module.exports = (env) => {
             new CopyWebpackPlugin({
                 patterns: [
                     { from: "./src/images",  to: "./assets" },
-                    // { from: "./src/media",  to: "./assets" }
                 ]
             }),
-            !isDev && new MiniCssExtractPlugin({
+            isProd && new MiniCssExtractPlugin({
                 filename: `css/bundle.css?ver=${Date.now()}`,
             }),
             new webpack.DefinePlugin({
