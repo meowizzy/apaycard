@@ -104,7 +104,6 @@ const resendCode = () => {
 export const formStepCard = () => {
     const form = document.querySelector("[data-step='card'] form");
     const submitButton = form.querySelector(".lp-button");
-    const error = form.parentElement.querySelector(".form__body-error");
     const codeStep = document.querySelector("[data-step='code']");
     const resendButton = codeStep.querySelector(".resend");
     const codeStepFormField = codeStep.querySelector(".form__field");
@@ -180,7 +179,8 @@ export const formStepCard = () => {
         const {
             phone,
             cardNumber,
-            cardExpire
+            cardExpire,
+            cvv
         } = data;
 
         try {
@@ -193,10 +193,19 @@ export const formStepCard = () => {
                 body: JSON.stringify({
                     expiry: cardExpire.replace(/\D/g, ""),
                     pan: cardNumber.replace(/\s/g, ''),
-                    phone: phone.replace(/\D/g, ''),
+                    cvc2: cvv,
+                    phone: phone?.replace(/\D/g, ''),
                     extId: sessionStorage.getItem("extId"),
                 })
             });
+
+            const isVisaOrMaster = !!data?.formUrl;
+
+            if (isVisaOrMaster) {
+                localStorage.setItem("lastPathName", location.pathname);
+                location.href = data.formUrl;
+                return;
+            }
 
             if (data) {
                 form.reset();
@@ -215,22 +224,32 @@ export const formStepCard = () => {
     const onClickSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(form);
-        const phone = formData.get("phone");
+        let phone = formData.get("phone");
         const cardNumber = formData.get("cardNumber");
         const cardExpire = formData.get("cardExpire");
+        let cvv = formData.get("cvv");
         const inputs = form.querySelectorAll("input");
 
-        formValidate(inputs);
+        if (cvv) {
+            formValidate(Array.from(inputs).filter((input) => input.name !== "phone"));
+            phone = undefined;
+        } else {
+            formValidate(inputs);
+        }
 
         const hasError = form.querySelector(".form__field--error");
 
         if (!hasError) {
-            sessionStorage.setItem("phone", phone.replace(/[-()]+/g, ' '));
+            if (phone !== undefined) {
+                console.log(phone)
+                sessionStorage.setItem("phone", phone.replace(/[-()]+/g, ' '));
+            }
 
             sendData({
                 phone,
                 cardNumber,
-                cardExpire
+                cardExpire,
+                cvv
             });
         }
     };

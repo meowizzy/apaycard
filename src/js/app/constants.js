@@ -1,4 +1,5 @@
 export const LOCAL_STORAGE_LANG_KEY = 'lang';
-// export const BASE_URL = __IS_DEV__ ? "https://api-dev.a-pay.uz/api" : "https://api.a-pay.uz/api";
-export const BASE_URL = "https://api-dev.a-pay.uz/api";
+const queryParams = new URLSearchParams(window.location.search);
+export const BASE_URL = (queryParams.get("isDev") || __IS_DEV__) ? "https://api-dev.a-pay.uz/api" : "https://api.a-pay.uz/api";
+// export const BASE_URL = "https://dev-apay-api.a-pay.uz/api";
 export const SITE_LANG = document.documentElement.lang;

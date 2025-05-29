@@ -5,6 +5,8 @@ import { formStepCard } from "./modules/formStepCard";
 import { checkId } from "./modules/checkId";
 import "../localization/index";
 import "toastify-js/src/toastify.css";
+import { cvv } from "./modules/cvv";
+import { transId } from "./modules/transId";
 
 const onDocumentLoaded = () => {
     inputMaskInit();
@@ -12,6 +14,8 @@ const onDocumentLoaded = () => {
     formStepCode();
     formStepCard();
     checkId();
+    transId();
+    cvv();
 };
 
 document.addEventListener("DOMContentLoaded", onDocumentLoaded);

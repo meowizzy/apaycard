@@ -21,17 +21,17 @@
                             </div>
                         </label>
                     </div>
-<!--                    <div class="form__field">-->
-<!--                        <label>-->
-<!--                            <div class="form__field-label">-->
-<!--                                <span>{{cardCvv}}</span>-->
-<!--                            </div>-->
-<!--                            <input type="text" name="cvv" placeholder="000" size="3" maxlength="3" class="input-cvv">-->
-<!--                        </label>-->
-<!--                    </div>-->
+                    <div class="form__field form__field-cvv d-none">
+                        <label>
+                            <div class="form__field-label">
+                                <span>{{cardCvv}}</span>
+                            </div>
+                            <input type="text" name="cvv" placeholder="000" size="3" maxlength="3" class="input-cvv">
+                        </label>
+                    </div>
                 </div>
                 <div class="form__group">
-                    <div class="form__field">
+                    <div class="form__field form__field-phone d-none">
                         <label>
                             <div class="form__field-label">
                                 <span>{{phoneNumber}}</span>
@@ -91,6 +91,17 @@
                 <div class="form-container__title">
                     <span></span>
                 </div>
+            </div>
+        </div>
+        <div class="form__step" data-step="timeout">
+            <div class="form-container">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <use xlink:href="#closeIcon"/>
+                </svg>
+                <div class="form-container__title">
+                    <span>{{errors.statusTimeout}}</span>
+                </div>
+                <button class="lp-button primary bold">{{checkAgain}}</button>
             </div>
         </div>
     </div>

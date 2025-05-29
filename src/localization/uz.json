@@ -15,6 +15,7 @@
   "codeFromSms": "SMS kodi",
   "publicOfferText": "Ommaviy oferta",
   "support": "Qo‘llab-quvvatlash xizmati",
+  "checkAgain": "Qayta tekshirish",
   "errors": {
     "incorrectCode": "Noto‘g‘ri SMS kodi kiritildi",
     "incorrectId": "Noto‘g‘ri identifikator yoki uning amal qilish muddati tugagan",
@@ -26,7 +27,8 @@
     "idIsNotEntered": "Operatsiya identifikatori ko‘rsatilmagan",
     "tooManyRequests": "Juda ko‘p so‘rovlar. Iltimos, keyinroq urinib ko‘ring.",
     "smsAlreadySent": "SMS kodi avval yuborilgan",
-    "limitOfAttemptsExceeded": "Urinishlar chegarasidan o‘tildi. Keyinroq qayta urinib ko‘ring."
+    "limitOfAttemptsExceeded": "Urinishlar chegarasidan o‘tildi. Keyinroq qayta urinib ko‘ring.",
+    "statusTimeout": "Kutish vaqti tugadi."
   },
   "validateErrors": {
     "checkEnteredData": "Kiritilgan ma'lumotlarni to‘g‘riligini tekshiring.",

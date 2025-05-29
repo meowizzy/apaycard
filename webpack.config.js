@@ -155,7 +155,7 @@ module.exports = (env) => {
             //         changeOrigin: true,
             //     },
             // },
-            port: 3000,
+            port: 3002,
             open: true,
             historyApiFallback: true,
             hot: true,

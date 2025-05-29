@@ -100,6 +100,12 @@
       }
     }
 
+    &[data-step="timeout"] {
+      .lp-button {
+        margin-top: 15px;
+      }
+    }
+
     &[data-step="code"] {
       max-width: 399px;
       margin: 0 auto;
@@ -139,13 +145,15 @@
       margin-bottom: 0;
     }
 
-    #{$self}__field {
-      @media all and (min-width: 501px) {
-        margin-right: 20px;
-      }
+    .lp-button {
+      flex-grow: 1;
+    }
 
+    #{$self}__field {
       &:last-child {
-        margin-right: 0;
+        @media all and (min-width: 501px) {
+          margin-left: 20px;
+        }
       }
     }
   }
