@@ -1,7 +1,7 @@
-import { showStep } from "../helpers/showStep";
+import { renderError } from "../../js/helpers/renderError";
 import { translate } from "../../localization";
-import { renderError } from "../helpers/renderError";
-import {$request} from "../libs/request";
+import { showStep } from "../../js/helpers/showStep";
+import { $request } from "../../js/libs/request";
 
 export const checkId = async () => {
     const queryParams = new URLSearchParams(window.location.search);

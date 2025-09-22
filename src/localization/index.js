@@ -1,20 +1,13 @@
-import dataRu from "./ru.json";
-import dataUz from "./uz.json";
-import dataCuz from "./cuz.json";
-import template from "../index.hbs";
 import { SITE_LANG } from "../js/app/constants";
+import localesByAppTypes from "./locales";
+import template from "../index.hbs";
 
 console.log("is dev: ", __IS_DEV__);
 console.log("mode: ", __MODE__);
-
-const locales = {
-    ru: dataRu,
-    uz: dataUz,
-    cuz: dataCuz
-};
+console.log("appType: ", __APP_TYPE__);
 
 if (__IS_DEV__) {
-    let templateData = template(locales[SITE_LANG]);
+    let templateData = template(Object.assign(localesByAppTypes[__APP_TYPE__][SITE_LANG], { APP_TYPE: __APP_TYPE__ }));
 
     document.body.innerHTML = new DOMParser().parseFromString(templateData, "text/html").body.outerHTML;
 }
@@ -31,7 +24,7 @@ export const translate = (ns, replacementText) => {
     const namespaces = ns.split(".");
 
     if (namespaces.length === 1) {
-        const trans = locales[SITE_LANG][ns];
+        const trans = localesByAppTypes[__APP_TYPE__][SITE_LANG][ns];
 
         if (replacementText) {
             return trans.replace("[code]", replacementText);
@@ -44,7 +37,7 @@ export const translate = (ns, replacementText) => {
         acc = acc[cur];
 
         return acc;
-    }, locales[SITE_LANG]);
+    }, localesByAppTypes[__APP_TYPE__][SITE_LANG]);
 
     if (replacementText) {
         return trans.replace("[code]", replacementText);

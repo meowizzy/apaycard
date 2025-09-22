@@ -13,9 +13,16 @@
         {{> template-parts/sprites }}
     </svg>
     <div class="wrapper">
-        <div class="container d-none">
+        <div class="container d-none {{APP_TYPE}}">
             {{> template-parts/header }}
-            {{> template-parts/form-container }}
+            {{#switch APP_TYPE}}
+                {{#case "CARD_ATTACHMENT"}}
+                    {{> app-card-attachment/app }}
+                {{/case}}
+                {{#case "PAYMENT"}}
+                    {{> app-payment/app }}
+                {{/case}}
+            {{/switch}}
             {{> template-parts/footer }}
         </div>
     </div>

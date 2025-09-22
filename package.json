@@ -1,5 +1,5 @@
 {
-  "name": "hamkor-smartpos",
+  "name": "apay",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,6 @@
     "startCardAttachment": "webpack server --env mode=development appType=CARD_ATTACHMENT",
     "buildPayment:prod": "webpack --env mode=production appType=PAYMENT",
     "buildCardAttachment:prod": "webpack --env mode=production appType=CARD_ATTACHMENT",
-
     "build:dev": "webpack --env mode=development",
     "build:prod": "webpack --env mode=production",
     "clear": "rd /s /q dist"

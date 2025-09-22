@@ -1,8 +1,8 @@
-import { translate } from "../../localization";
-import { showStep } from "../helpers/showStep";
-import { toastSuccess } from "../helpers/toastify";
-import { Otp } from "../libs/otpClass";
-import { $request } from "../libs/request";
+import {Otp} from "../../js/libs/otpClass";
+import {translate} from "../../localization";
+import {$request} from "../../js/libs/request";
+import {toastSuccess} from "../../js/helpers/toastify";
+import {showStep} from "../../js/helpers/showStep";
 
 export const formStepCode = () => {
     const step = document.querySelector("[data-step='code']");

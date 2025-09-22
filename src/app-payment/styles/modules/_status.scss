@@ -1,0 +1,30 @@
+.form {
+  &__header-bot {
+    display: flex;
+    margin-top: 30px;
+
+    &-col {
+      display: flex;
+      flex-direction: column;
+      width: calc(100% / 3);
+      padding-right: 20px;
+
+      strong {
+        font-size: 20px;
+        margin-top: 4px;
+      }
+
+      &[data-status="PENDING"] strong {
+        color: #ffab00;
+      }
+
+      &[data-status="PAID"] strong {
+        color: rgba(43, 188, 93, 1);
+      }
+
+      &[data-status="CANCELED"] strong {
+        color: rgba(255, 82, 82, 1);
+      }
+    }
+  }
+}

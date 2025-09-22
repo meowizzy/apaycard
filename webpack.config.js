@@ -3,45 +3,39 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const uzLocales = require("./src/localization/uz.json");
-const ruLocales = require("./src/localization/ru.json");
-const cuzLocales = require("./src/localization/cuz.json");
+const localesByAppTypes = require("./src/localization/locales");
 
-const appTypes = {
-    CARD_ATTACHMENT: {
-        entry: path.resolve(__dirname, "src", "./app-card-attachment/index.js"),
-        template: path.resolve(__dirname, "src", "./app-card-attachment/index.hbs"),
-        output: "build-card-attachment"
-    },
-    PAYMENT: {
-        entry: path.resolve(__dirname, "src", "./app-payment/index.js"),
-        template: path.resolve(__dirname, "src", "./app-payment/index.hbs"),
-        output: "build-payment"
-    }
-};
-
-const locales = {
+const getLocalesByAppType = (appType) => ({
     ru: {
         name: "index",
-        data: ruLocales,
+        data: localesByAppTypes[appType]["ru"]
     },
     uz: {
         name: "uz",
-        data: uzLocales,
+        data: localesByAppTypes[appType]["uz"]
     },
     cuz: {
         name: "cuz",
-        data: cuzLocales
+        data: localesByAppTypes[appType]["cuz"]
     }
-};
+});
 
 module.exports = (env) => {
     const mode = env.mode || "development";
     const isDev = mode === "development";
     const isProd = !isDev;
-    const appType = env.appType || appTypes.CARD_ATTACHMENT;
+    const APP_TYPE = env.appType || "CARD_ATTACHMENT";
     const target = isDev ? "web" : "browserslist";
     const devtool = isDev ? "source-map" : undefined;
+
+    const appTypeEntries = {
+        "PAYMENT": {
+            styles: path.resolve(__dirname, "src", "./app-payment/styles/main.scss")
+        },
+        "CARD_ATTACHMENT": {
+            styles: path.resolve(__dirname, "src", "./app-card-attachment/styles/main.scss")
+        },
+    };
 
     return {
         mode,
@@ -50,6 +44,7 @@ module.exports = (env) => {
         entry: [
             "@babel/polyfill",
             path.resolve(__dirname, "src", "./js/index.js"),
+            appTypeEntries[APP_TYPE].styles,
             path.resolve(__dirname, "src", "./styles/main.scss")
         ],
         output: {
@@ -118,7 +113,7 @@ module.exports = (env) => {
             ]
         },
         plugins: [
-            ...Object.entries(locales).map(([key, tpl]) => {
+            ...Object.entries(getLocalesByAppType(APP_TYPE)).map(([key, tpl]) => {
                 return new HtmlWebpackPlugin({
                     template: path.resolve(__dirname, "src", `index.hbs`),
                     filename: `${tpl.name}.html`,
@@ -126,7 +121,8 @@ module.exports = (env) => {
                     chunks: ["main"],
                     minify: false,
                     templateParameters: Object.assign(tpl.data,{
-                        title: tpl.data.title,
+                        APP_TYPE,
+                        title: `A-Pay | ${tpl.data.title}`,
                         lang: key
                     })
                 })
@@ -141,7 +137,8 @@ module.exports = (env) => {
             }),
             new webpack.DefinePlugin({
                 __IS_DEV__: JSON.stringify(isDev),
-                __MODE__: JSON.stringify(mode)
+                __MODE__: JSON.stringify(mode),
+                __APP_TYPE__: JSON.stringify(APP_TYPE)
             }),
         ],
         devServer: isDev ? {
@@ -155,7 +152,7 @@ module.exports = (env) => {
             //         changeOrigin: true,
             //     },
             // },
-            port: 3002,
+            port: 3001,
             open: true,
             historyApiFallback: true,
             hot: true,

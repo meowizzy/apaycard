@@ -1,11 +1,27 @@
 <div class="form">
     <div class="form__header">
-        <h1 class="form__title">{{cardAttachment}}</h1>
+        <div class="form__header-top">
+            <h1 class="form__title">{{title}}</h1>
+        </div>
+        <div class="form__header-bot d-none">
+            <div class="form__header-bot-col">
+                <span>Платеж №</span>
+                <strong>[code]</strong>
+            </div>
+            <div class="form__header-bot-col" data-status>
+                <span>Статус</span>
+                <strong>[code]</strong>
+            </div>
+            <div class="form__header-bot-col">
+                <span>Сумма</span>
+                <strong>[code]</strong>
+            </div>
+        </div>
     </div>
     <div class="form__body">
         <div class="form__step" data-step="card">
             <div class="form__body-title">
-                <span>{{attachCard}}</span>
+                <span>{{title}}</span>
             </div>
             <div class="form__body-error d-none"></div>
             <form class="form__actions">
@@ -29,17 +45,6 @@
                             <input type="text" name="cvv" placeholder="000" size="3" maxlength="3" class="input-cvv">
                         </label>
                     </div>
-                </div>
-                <div class="form__group">
-                    <div class="form__field form__field-phone d-none">
-                        <label>
-                            <div class="form__field-label">
-                                <span>{{phoneNumber}}</span>
-                            </div>
-                            <input type="text" name="phone" placeholder="+998" class="input-phone">
-                        </label>
-                    </div>
-                    {{> button title=continue selectors="primary bold"}}
                 </div>
             </form>
             <div class="form__publicOffer">
@@ -68,8 +73,8 @@
                     </label>
                 </div>
                 <div class="form__buttons">
-                    {{> button  selectors="clear resend" attr="disabled"}}
-                    {{> button title=cancel selectors="clear cancel"}}
+                    {{> ../../template-parts/button  selectors="clear resend" attr="disabled"}}
+                    {{> ../../template-parts/button title=cancel selectors="clear cancel"}}
                 </div>
             </form>
         </div>
@@ -79,7 +84,7 @@
                     <use xlink:href="#checkIcon"/>
                 </svg>
                 <div class="form-container__title">
-                    <span>{{{success.cardActivated}}}</span>
+                    <span>{{{success.paymentSuccess}}}</span>
                 </div>
             </div>
         </div>
@@ -95,11 +100,11 @@
         </div>
         <div class="form__step" data-step="timeout">
             <div class="form-container">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <use xlink:href="#closeIcon"/>
+                <svg width="40" height="40" viewBox="0 0 20 20">
+                    <use xlink:href="#timeout"/>
                 </svg>
                 <div class="form-container__title">
-                    <span>{{errors.statusTimeout}}</span>
+                    <span>{{errors.paymentStatusTimedOut}}</span>
                 </div>
                 <button class="lp-button primary bold">{{checkAgain}}</button>
             </div>
