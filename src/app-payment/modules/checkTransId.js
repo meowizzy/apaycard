@@ -4,11 +4,13 @@ import {showStep} from "../../js/helpers/showStep";
 import {$request} from "../../js/libs/request";
 import {setStatus, toggleDetails} from "./showStatus";
 import {showRoot} from "./showRoot";
+import {renderFinishStep} from "./renderFinishStep";
+import {SEARCH_PARAMS} from "../../js/app/constants";
+import {toastError} from "../../js/helpers/toastify";
 
 export const checkTransId = () => {
-  const queryParams = new URLSearchParams(window.location.search);
-  const transId = queryParams.get("trans_id");
-  const dataFromKapital = queryParams.get("data");
+  const transId = SEARCH_PARAMS.get("trans_id");
+  const dataFromKapital = SEARCH_PARAMS.get("data");
 
   if (dataFromKapital) {
     const lastPathName = localStorage.getItem("lastPathName");
@@ -19,8 +21,8 @@ export const checkTransId = () => {
   }
 
   if (!transId) {
-    renderError(translate("errors.idIsNotEntered"));
-    showRoot();
+    // renderError(translate("errors.idIsNotEntered"));
+    // showRoot();
     return;
   }
 
@@ -50,20 +52,16 @@ export const checkTransId = () => {
           setStatus(statusCode, translate(`statuses.${statusCode}`));
           localStorage.removeItem("lastPathName");
 
-          switch (statusCode) {
-            case "PAID":
-              showStep("success");
-              break;
-            case "CANCELED":
-              renderError("Платеж отменен");
-              break;
-          }
+          renderFinishStep(statusCode);
         } else {
           showStep("timeout");
         }
       }
     } catch (e) {
       renderError(e.message);
+      toastError(e.message);
+      toggleDetails(false);
+      showRoot();
     } finally {
       toggleDetails(false);
     }

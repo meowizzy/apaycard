@@ -3,7 +3,7 @@ import { formStepCard } from "./modules/formStepCard";
 import { checkId } from "./modules/checkId";
 
 export const appCardAttachment = () => {
+    checkId();
     formStepCode();
     formStepCard();
-    checkId();
 };

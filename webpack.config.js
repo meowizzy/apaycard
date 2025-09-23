@@ -22,6 +22,7 @@ const getLocalesByAppType = (appType) => ({
 
 module.exports = (env) => {
     const mode = env.mode || "development";
+    const isEnvDev = env.isDev === "true";
     const isDev = mode === "development";
     const isProd = !isDev;
     const APP_TYPE = env.appType || "CARD_ATTACHMENT";
@@ -136,7 +137,7 @@ module.exports = (env) => {
                 filename: `css/bundle.css?ver=${Date.now()}`,
             }),
             new webpack.DefinePlugin({
-                __IS_DEV__: JSON.stringify(isDev),
+                __IS_DEV__: JSON.stringify(isEnvDev),
                 __MODE__: JSON.stringify(mode),
                 __APP_TYPE__: JSON.stringify(APP_TYPE)
             }),

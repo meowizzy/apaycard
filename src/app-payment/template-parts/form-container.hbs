@@ -4,15 +4,15 @@
             <h1 class="form__title">{{title}}</h1>
         </div>
         <div class="form__header-bot d-none">
-            <div class="form__header-bot-col">
+            <div class="form__header-bot-col" data-details-type="payment">
                 <span>Платеж №</span>
                 <strong>[code]</strong>
             </div>
-            <div class="form__header-bot-col" data-status>
+            <div class="form__header-bot-col" data-status data-details-type="status">
                 <span>Статус</span>
                 <strong>[code]</strong>
             </div>
-            <div class="form__header-bot-col">
+            <div class="form__header-bot-col" data-details-type="amount">
                 <span>Сумма</span>
                 <strong>[code]</strong>
             </div>
@@ -45,6 +45,9 @@
                             <input type="text" name="cvv" placeholder="000" size="3" maxlength="3" class="input-cvv">
                         </label>
                     </div>
+                </div>
+                <div class="form__field" style="text-align: center;">
+                    {{> ../../template-parts/button title=continue selectors="primary bold"}}
                 </div>
             </form>
             <div class="form__publicOffer">
@@ -107,6 +110,14 @@
                     <span>{{errors.paymentStatusTimedOut}}</span>
                 </div>
                 <button class="lp-button primary bold">{{checkAgain}}</button>
+            </div>
+        </div>
+        <div class="form__step" data-step="loading">
+            <div class="form-container">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <use xlink:href="#spinner"/>
+                </svg>
+                <strong class="form-container__message">[code]</strong>
             </div>
         </div>
     </div>

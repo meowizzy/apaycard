@@ -1,5 +1,6 @@
 {
   "title": "Оплата",
+  "paymentProcessing": "Обработка платежа",
   "cardNumber": "Номер карты",
   "cardCvv": "CVV",
   "phoneNumber": "Номер телефона",
@@ -32,13 +33,16 @@
     "tooManyRequests": "Слишком много запросов. Пожалуйста, попробуйте позже.",
     "smsAlreadySent": "СМС с кодом ранее уже был отправлен",
     "limitOfAttemptsExceeded": "Превышен лимит попыток. Повторите попытку позже.",
-    "paymentStatusTimedOut": "Время ожидания статуса оплаты истекло."
+    "paymentStatusTimedOut": "Время ожидания статуса оплаты истекло.",
+    "paymentError": "Ошибка оплаты"
   },
   "validateErrors": {
     "checkEnteredData": "Проверьте корректность введённых данных.",
     "cardExpIncorrect": "Неверный срок действия карты",
     "cardNumberIncorrect": "Неверный номер карты",
-    "phoneNumberIncorrect": "Неверный номер телефона"
+    "phoneNumberIncorrect": "Неверный номер телефона",
+    "billIdNotEntered": "Не указан идентификатор счёта",
+    "idNotEntered": "Не указан идентификатор операции"
   },
   "warnings": {
     "cardAlreadyActivated": "Карта ранее была привязана или срок действия кода истёк"

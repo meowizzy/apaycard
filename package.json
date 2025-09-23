@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "startPayment": "webpack serve --env mode=development appType=PAYMENT",
-    "startCardAttachment": "webpack server --env mode=development appType=CARD_ATTACHMENT",
+    "startPayment": "webpack serve --env mode=development appType=PAYMENT isDev=true",
+    "buildPayment:dev": "webpack --env mode=production appType=PAYMENT isDev=true",
     "buildPayment:prod": "webpack --env mode=production appType=PAYMENT",
+
+    "startCardAttachment": "webpack server --env mode=development appType=CARD_ATTACHMENT isDev=true",
+    "buildCardAttachment:dev": "webpack --env mode=production appType=CARD_ATTACHMENT isDev=true",
     "buildCardAttachment:prod": "webpack --env mode=production appType=CARD_ATTACHMENT",
-    "build:dev": "webpack --env mode=development",
-    "build:prod": "webpack --env mode=production",
+
     "clear": "rd /s /q dist"
   },
   "keywords": [],
