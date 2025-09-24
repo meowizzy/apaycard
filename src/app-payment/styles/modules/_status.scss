@@ -12,6 +12,9 @@
       strong {
         font-size: 20px;
         margin-top: 4px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
 
       &[data-status="PENDING"] strong {

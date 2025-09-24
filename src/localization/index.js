@@ -6,7 +6,7 @@ console.log("is dev: ", __IS_DEV__);
 console.log("mode: ", __MODE__);
 console.log("appType: ", __APP_TYPE__);
 
-if (__IS_DEV__) {
+if (__IS_LOCAL__) {
     let templateData = template(Object.assign(localesByAppTypes[__APP_TYPE__][SITE_LANG], { APP_TYPE: __APP_TYPE__ }));
 
     document.body.innerHTML = new DOMParser().parseFromString(templateData, "text/html").body.outerHTML;

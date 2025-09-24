@@ -1,5 +1,5 @@
 import {$request} from "../../js/libs/request";
-import {setStatus, toggleDetails} from "./showStatus";
+import {setDetails, toggleDetails} from "./showStatus";
 import {showRoot} from "./showRoot";
 import {showStep} from "../../js/helpers/showStep";
 import {renderLoadingStep} from "./renderLoadingStep";
@@ -12,9 +12,14 @@ import {SEARCH_PARAMS} from "../../js/app/constants";
 let firstReq = false;
 
 export const checkBillId = async (ctx = "") => {
-  const detailsTitle = document.querySelector(".form__header-top .form__title");
-  const detailsPayment = document.querySelector(`[data-details-type="payment"] strong`);
-  const detailsAmount = document.querySelector(`[data-details-type="amount"] strong`);
+  const step = sessionStorage.getItem("step");
+  const countdown = sessionStorage.getItem("countDown");
+  const sessionNotFinished = !!step && !!countdown;
+
+  if (sessionNotFinished) {
+    return;
+  }
+
   const billId = SEARCH_PARAMS.get("billId");
 
   if (!billId) {
@@ -29,15 +34,19 @@ export const checkBillId = async (ctx = "") => {
     });
 
     if (data) {
+      const detailsData = {
+        title: data.merchantName,
+        payment: billId,
+        amount: `${String(data.amount).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ${translate("fields.SUM")}`
+      };
+
       if (!firstReq) {
-        detailsTitle.textContent = data.merchantName;
-        detailsPayment.textContent = billId;
-        detailsAmount.textContent = String(data.amount).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        setDetails(detailsData);
       }
 
       const statusCode = data.status.code === "CREATED" ? "PENDING" : data.status.code;
 
-      setStatus(statusCode);
+      setDetails({ status: { code: statusCode, message: translate(`statuses.${statusCode}`) } });
       toggleDetails();
 
       if (statusCode === "PENDING") {
@@ -46,7 +55,6 @@ export const checkBillId = async (ctx = "") => {
         }
 
         if (ctx === "SMS_INPUT") {
-          renderLoadingStep(translate("paymentProcessing"));
           setTimeout(() => {
             checkBillId(ctx);
           }, 4000);

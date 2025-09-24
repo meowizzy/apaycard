@@ -2,7 +2,7 @@ import {renderError} from "../../js/helpers/renderError";
 import {translate} from "../../localization";
 import {showStep} from "../../js/helpers/showStep";
 import {$request} from "../../js/libs/request";
-import {setStatus, toggleDetails} from "./showStatus";
+import {setDetails, toggleDetails} from "./showStatus";
 import {showRoot} from "./showRoot";
 import {renderFinishStep} from "./renderFinishStep";
 import {SEARCH_PARAMS} from "../../js/app/constants";
@@ -49,7 +49,7 @@ export const checkTransId = () => {
           }
           showRoot();
           toggleDetails();
-          setStatus(statusCode, translate(`statuses.${statusCode}`));
+          setDetails(statusCode, translate(`statuses.${statusCode}`));
           localStorage.removeItem("lastPathName");
 
           renderFinishStep(statusCode);

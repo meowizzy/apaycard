@@ -123,7 +123,7 @@ module.exports = (env) => {
                     minify: false,
                     templateParameters: Object.assign(tpl.data,{
                         APP_TYPE,
-                        title: `A-Pay | ${tpl.data.title}`,
+                        title: tpl.data.title,
                         lang: key
                     })
                 })
@@ -138,6 +138,7 @@ module.exports = (env) => {
             }),
             new webpack.DefinePlugin({
                 __IS_DEV__: JSON.stringify(isEnvDev),
+                __IS_LOCAL__: JSON.stringify(isDev),
                 __MODE__: JSON.stringify(mode),
                 __APP_TYPE__: JSON.stringify(APP_TYPE)
             }),

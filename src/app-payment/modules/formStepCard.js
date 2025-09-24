@@ -1,4 +1,4 @@
-import {toastError} from "../../js/helpers/toastify";
+import {toastError, toastSuccess} from "../../js/helpers/toastify";
 import {showStep} from "../../js/helpers/showStep";
 import {$request} from "../../js/libs/request";
 import { setCountdown } from "../../js/libs/countDown";
@@ -44,11 +44,13 @@ export const formStepCard = () => {
   const billId = SEARCH_PARAMS.get("billId");
 
   const renderCodeStepDesc = (phone = sessionStorage.getItem("phone")) => {
-    codeStepFormDesc.textContent = translate("smsConfirmationDescription", hideNumber({
-      phone,
-      elemsHide: 5,
-      sliceFromBack: 2
-    }));
+    codeStepFormDesc.textContent = translate("smsConfirmationDescription", phone);
+
+    // hideNumber({
+    //   phone,
+    //   elemsHide: 5,
+    //   sliceFromBack: 2
+    // })
   };
 
   renderCodeStepDesc();
@@ -114,8 +116,11 @@ export const formStepCard = () => {
       cardExpire
     } = data;
 
-    sessionStorage.setItem("cardNumber", cardNumber);
-    sessionStorage.setItem("cardExpire", cardExpire);
+    const unFormattedCardNumber = cardNumber.replace(/\s/g, "");
+    const unFormattedCardExpire = cardExpire.replace(/\D/g, "");
+
+    sessionStorage.setItem("cardNumber", unFormattedCardNumber);
+    sessionStorage.setItem("cardExpire", unFormattedCardExpire);
 
     try {
       const data = await $request({
@@ -126,8 +131,8 @@ export const formStepCard = () => {
         },
         body: JSON.stringify({
           billId,
-          expiry: cardExpire.replace(/\D/g, ""),
-          pan: cardNumber.replace(/\s/g, ''),
+          expiry: unFormattedCardExpire,
+          pan: unFormattedCardNumber,
         })
       });
 
@@ -143,6 +148,7 @@ export const formStepCard = () => {
         form.reset();
         renderCountDown();
         resendButton.removeEventListener("click", onClickResendButton);
+        sessionStorage.setItem("phone", data.ownerPhone);
         renderCodeStepDesc(data.ownerPhone);
         showStep("code");
       }

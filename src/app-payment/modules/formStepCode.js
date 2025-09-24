@@ -4,6 +4,7 @@ import {$request} from "../../js/libs/request";
 import {showStep} from "../../js/helpers/showStep";
 import {SEARCH_PARAMS} from "../../js/app/constants";
 import {checkBillId} from "./checkBillId";
+import {renderLoadingStep} from "./renderLoadingStep";
 
 export const formStepCode = () => {
   const step = document.querySelector("[data-step='code']");
@@ -43,6 +44,7 @@ export const formStepCode = () => {
     // errorElement.remove();
 
     try {
+      renderLoadingStep(translate("paymentProcessing"));
       const data = await $request({
         url: "/web/v1/bills/pay",
         method: "PUT",
@@ -71,6 +73,12 @@ export const formStepCode = () => {
       }
     } catch (e) {
       // toastError(e.message);
+      const step = sessionStorage.getItem("step");
+
+      if (step !== "code") {
+        showStep("code");
+      }
+
       isBlocked = true;
       setTimeout(() => {
         isBlocked = false;
@@ -86,6 +94,7 @@ export const formStepCode = () => {
   const handleCancel = (e) => {
     e.preventDefault();
     showStep("card");
+    sessionStorage.clear();
   };
 
   otpInstance.onFilled((isFilled) => {
