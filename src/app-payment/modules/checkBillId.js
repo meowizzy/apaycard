@@ -1,13 +1,13 @@
-import {$request} from "../../js/libs/request";
-import {setDetails, toggleDetails} from "./showStatus";
-import {showRoot} from "./showRoot";
-import {showStep} from "../../js/helpers/showStep";
-import {renderLoadingStep} from "./renderLoadingStep";
-import {translate} from "../../localization";
-import {renderError} from "../../js/helpers/renderError";
-import {renderFinishStep} from "./renderFinishStep";
-import {toastError} from "../../js/helpers/toastify";
-import {SEARCH_PARAMS} from "../../js/app/constants";
+import { $request } from "../../js/libs/request";
+import { setDetails, toggleDetails } from "./showStatus";
+import { showRoot } from "./showRoot";
+import { showStep } from "../../js/helpers/showStep";
+import { translate } from "../../localization";
+import { renderError } from "../../js/helpers/renderError";
+import { renderFinishStep } from "./renderFinishStep";
+import { toastError } from "../../js/helpers/toastify";
+import { SEARCH_PARAMS } from "../../js/app/constants";
+import { formStepCard } from "./formStepCard";
 
 let firstReq = false;
 
@@ -30,28 +30,43 @@ export const checkBillId = async (ctx = "") => {
 
   try {
     const data = await $request({
-      url: `/web/v1/bills/check/${billId}`
+      url: `/web/v1/bills/check/${billId}`,
     });
+
+    // const data = {
+    //   merchantName: "123131",
+    //   amount: 123000,
+    //   status: {
+    //     code: "PENDING",
+    //   },
+    // };
 
     if (data) {
       const detailsData = {
         title: data.merchantName,
         payment: billId,
-        amount: `${String(data.amount).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} ${translate("fields.SUM")}`
+        amount: `${String(data.amount).replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ${translate("fields.SUM")}`,
       };
 
       if (!firstReq) {
         setDetails(detailsData);
       }
 
-      const statusCode = data.status.code === "CREATED" ? "PENDING" : data.status.code;
+      const statusCode =
+        data.status.code === "CREATED" ? "PENDING" : data.status.code;
 
-      setDetails({ status: { code: statusCode, message: translate(`statuses.${statusCode}`) } });
+      setDetails({
+        status: {
+          code: statusCode,
+          message: translate(`statuses.${statusCode}`),
+        },
+      });
       toggleDetails();
 
       if (statusCode === "PENDING") {
         if (!ctx) {
           showStep("card");
+          formStepCard();
         }
 
         if (ctx === "SMS_INPUT") {

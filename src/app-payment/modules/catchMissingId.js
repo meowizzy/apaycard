@@ -8,8 +8,8 @@ export const catchMissingId = () => {
   const billId = SEARCH_PARAMS.get("billId");
   const transId = SEARCH_PARAMS.get("trans_id");
 
-  if (!billId && !transId) {
-    renderError(translate("validateErrors.idNotEntered"));
+  if ((!billId && !transId) || (billId && transId)) {
+    renderError(translate("validateErrors.idNotEnteredOrIdIsIncorrect"));
     toggleDetails(false);
     showRoot();
 

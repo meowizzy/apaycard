@@ -48,7 +48,7 @@
     "cardNumberIncorrect": "Неверный номер карты",
     "phoneNumberIncorrect": "Неверный номер телефона",
     "billIdNotEntered": "Не указан идентификатор счёта",
-    "idNotEntered": "Не указан идентификатор операции"
+    "idNotEnteredOrIdIsIncorrect": "Не указан идентификатор операции или идентификатор неверен"
   },
   "warnings": {
     "cardAlreadyActivated": "Карта ранее была привязана или срок действия кода истёк"

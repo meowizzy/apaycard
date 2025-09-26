@@ -1,120 +1,20 @@
-import {toastError, toastSuccess} from "../../js/helpers/toastify";
-import {showStep} from "../../js/helpers/showStep";
-import {$request} from "../../js/libs/request";
-import { setCountdown } from "../../js/libs/countDown";
-import { translate } from "../../localization";
-import { hideNumber } from "../../js/helpers/hideNumber";
+import { toastError } from "../../js/helpers/toastify";
+import { showStep } from "../../js/helpers/showStep";
+import { $request } from "../../js/libs/request";
 import { SEARCH_PARAMS } from "../../js/app/constants";
 import { formValidate } from "../../js/helpers/validator";
-
-const resendCode = () => {
-  sessionStorage.removeItem("countDown");
-  const billId = SEARCH_PARAMS.get("billId");
-  const cardNumber = sessionStorage.getItem("cardNumber");
-  const cardExpire = sessionStorage.getItem("cardExpire");
-
-  if (!cardNumber && !cardExpire && !billId) {
-    toastError("Card number and card expire weren't entered");
-    return;
-  }
-
-  return $request({
-    withoutResponse: true,
-    url: "/web/v1/bills/resend-activation-code",
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      billId,
-      expiry: cardExpire,
-      pan: cardNumber,
-    })
-  });
-};
+import { renderMerchantPhone } from "./renderMerchantPhone";
+import { formStepCode } from "./formStepCode";
 
 export const formStepCard = () => {
   const form = document.querySelector("[data-step='card'] form");
   const submitButton = form.querySelector(".lp-button");
-  const codeStep = document.querySelector("[data-step='code']");
-  const resendButton = codeStep.querySelector(".resend");
-  const codeStepFormField = codeStep.querySelector(".form__field");
-  const codeStepFormDesc = codeStep.querySelector(".form__body-desc");
-  const countDown = sessionStorage.getItem("countDown");
   const billId = SEARCH_PARAMS.get("billId");
-
-  const renderCodeStepDesc = (phone = sessionStorage.getItem("phone")) => {
-    codeStepFormDesc.textContent = translate("smsConfirmationDescription", phone);
-
-    // hideNumber({
-    //   phone,
-    //   elemsHide: 5,
-    //   sliceFromBack: 2
-    // })
-  };
-
-  renderCodeStepDesc();
-
-  const renderCountDown = (count = 60) => {
-    setCountdown({
-      duration: count,
-      dest: resendButton.children[0],
-      onFinish: onFinishCountDown,
-      onUpdate: (time) => {
-        sessionStorage.setItem("countDown", time);
-      },
-    });
-  };
-
-  const onClickResendButton = async (e) => {
-    e.preventDefault();
-
-    codeStepFormField.classList.remove("form__field--error");
-    codeStep.querySelector("form").reset();
-
-    const codeStemFormFieldErrorMessage = codeStepFormField.querySelector(".error");
-
-    if (codeStemFormFieldErrorMessage) {
-      codeStemFormFieldErrorMessage.remove();
-    }
-
-    try {
-      resendButton.classList.add("loading");
-
-      await resendCode();
-
-      toastSuccess(translate("success.codeSent"));
-      renderCountDown();
-      resendButton.removeEventListener("click", onClickResendButton);
-      resendButton.setAttribute("disabled", "true");
-
-    } catch (e) {
-      toastError(e.message);
-    } finally {
-      resendButton.classList.remove("loading");
-    }
-  };
-
-  const onFinishCountDown = () => {
-    resendButton.removeAttribute("disabled");
-    resendButton.children[0].textContent = translate("resend");
-    resendButton.addEventListener("click", onClickResendButton);
-    sessionStorage.removeItem("countDown");
-  };
-
-  if (countDown) {
-    renderCountDown(Number(countDown));
-  } else {
-    onFinishCountDown();
-  }
 
   const sendData = async (data) => {
     submitButton.classList.add("loading");
 
-    const {
-      cardNumber,
-      cardExpire
-    } = data;
+    const { cardNumber, cardExpire } = data;
 
     const unFormattedCardNumber = cardNumber.replace(/\s/g, "");
     const unFormattedCardExpire = cardExpire.replace(/\D/g, "");
@@ -125,7 +25,7 @@ export const formStepCard = () => {
     try {
       const data = await $request({
         url: "/web/v1/bills/update",
-        method: 'PUT',
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -133,8 +33,12 @@ export const formStepCard = () => {
           billId,
           expiry: unFormattedCardExpire,
           pan: unFormattedCardNumber,
-        })
+        }),
       });
+
+      // const data = {
+      //   ownerPhone: "+998901667739",
+      // };
 
       if (data) {
         if (data.formUrl) {
@@ -146,11 +50,12 @@ export const formStepCard = () => {
         }
 
         form.reset();
-        renderCountDown();
-        resendButton.removeEventListener("click", onClickResendButton);
+
         sessionStorage.setItem("phone", data.ownerPhone);
-        renderCodeStepDesc(data.ownerPhone);
+        renderMerchantPhone(data.ownerPhone);
         showStep("code");
+        formStepCode();
+        form.removeEventListener("submit", onClickSubmit);
       }
     } catch (e) {
       toastError(e.message);
@@ -159,7 +64,7 @@ export const formStepCard = () => {
     }
   };
 
-  const onClickSubmit = (e) => {
+  function onClickSubmit(e) {
     e.preventDefault();
     const formData = new FormData(form);
     const cardNumber = formData.get("cardNumber");
@@ -173,10 +78,10 @@ export const formStepCard = () => {
     if (!hasError) {
       sendData({
         cardNumber,
-        cardExpire
+        cardExpire,
       });
     }
-  };
+  }
 
   form.addEventListener("submit", onClickSubmit);
 };
