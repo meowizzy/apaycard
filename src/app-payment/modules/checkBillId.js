@@ -8,6 +8,7 @@ import { renderFinishStep } from "./renderFinishStep";
 import { toastError } from "../../js/helpers/toastify";
 import { SEARCH_PARAMS } from "../../js/app/constants";
 import { formStepCard } from "./formStepCard";
+import { cvv } from "./cvv";
 
 let firstReq = false;
 
@@ -67,6 +68,7 @@ export const checkBillId = async (ctx = "") => {
         if (!ctx) {
           showStep("card");
           formStepCard();
+          // cvv();
         }
 
         if (ctx === "SMS_INPUT") {

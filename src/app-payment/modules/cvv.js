@@ -8,8 +8,6 @@ export const cvv = () => {
   );
   const cvvField = document.querySelector(".form__field-cvv");
   const cvvInput = cvvField.querySelector("input");
-  const phoneField = document.querySelector(".form__field-phone");
-  const phoneInput = phoneField.querySelector("input");
 
   const checkCardNumber = async (cardNumber) => {
     try {
@@ -25,7 +23,6 @@ export const cvv = () => {
       });
     } catch (e) {
       toastError(e.message);
-      phoneField.classList.add("d-none");
     }
   };
 
@@ -38,23 +35,17 @@ export const cvv = () => {
       if (result?.cvv) {
         cvvField.classList.remove("d-none");
         cvvInput.removeAttribute("disabled");
-
-        phoneField.classList.add("d-none");
-        phoneInput.value = "";
       } else {
         if (result) {
           cvvField.classList.add("d-none");
           cvvInput.setAttribute("disabled", "disabled");
           cvvInput.value = "";
-          phoneField.classList.remove("d-none");
         }
       }
     } else {
       cvvField.classList.add("d-none");
       cvvInput.setAttribute("disabled", "disabled");
       cvvInput.value = "";
-      phoneField.classList.add("d-none");
-      phoneInput.value = "";
     }
   }, 500);
 

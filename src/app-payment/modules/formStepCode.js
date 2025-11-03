@@ -120,9 +120,9 @@ export const formStepCode = () => {
   };
 
   const sendRequest = async () => {
-    if (isBlocked) {
-      return;
-    }
+    // if (isBlocked) {
+    //   return;
+    // }
 
     const otpCode = otpCodeInput.value;
     otpCodeField.classList.add("disabled");
@@ -168,10 +168,10 @@ export const formStepCode = () => {
         showStep("code");
       }
 
-      isBlocked = true;
-      setTimeout(() => {
-        isBlocked = false;
-      }, 5000);
+      // isBlocked = true;
+      // setTimeout(() => {
+      //   isBlocked = false;
+      // }, 5000);
       otpCodeField.classList.add("form__field--error");
       errorElement.textContent = e.message;
       otpCodeLabel.append(errorElement);

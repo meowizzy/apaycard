@@ -1,7 +1,7 @@
-import {showStep} from "../../js/helpers/showStep";
-import {renderError} from "../../js/helpers/renderError";
-import {translate} from "../../localization";
-import {toastSuccess} from "../../js/helpers/toastify";
+import { showStep } from "../../js/helpers/showStep";
+import { renderError } from "../../js/helpers/renderError";
+import { translate } from "../../localization";
+import { toastSuccess } from "../../js/helpers/toastify";
 
 export const renderFinishStep = (statusCode) => {
   switch (statusCode) {

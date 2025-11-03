@@ -33,6 +33,7 @@ export const formStepCard = () => {
           billId,
           expiry: unFormattedCardExpire,
           pan: unFormattedCardNumber,
+          // cvc2: cvv ? cvv : undefined,
         }),
       });
 
@@ -70,6 +71,7 @@ export const formStepCard = () => {
     const cardNumber = formData.get("cardNumber");
     const cardExpire = formData.get("cardExpire");
     const inputs = form.querySelectorAll("input");
+    // const cvv = formData.get("cvv");
 
     formValidate(inputs);
 
@@ -79,6 +81,7 @@ export const formStepCard = () => {
       sendData({
         cardNumber,
         cardExpire,
+        // cvv,
       });
     }
   }

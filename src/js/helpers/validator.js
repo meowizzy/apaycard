@@ -1,10 +1,10 @@
-import {translate} from "../../localization";
+import { translate } from "../../localization";
 
 const isValidCardExpire = (cardExp) => {
   const [month, year] = cardExp.split(" / ");
-  const exp = cardExp.replace(/[/\s]+/g, '');
+  const exp = cardExp.replace(/[/\s]+/g, "");
 
-  return exp.length === 4 && (Number(month) >= 1 && Number(year) >= 25);
+  return exp.length === 4 && Number(month) >= 1 && Number(year) >= 25;
 };
 
 const isValidCardNumber = (cardNumber) => {
@@ -68,6 +68,16 @@ export const formValidate = (inputs) => {
         if (!isValidCardExpire(input.value)) {
           input.classList.add("input-error");
           pasteError(input, translate("validateErrors.cardExpIncorrect"));
+        } else {
+          input.classList.remove("input-error");
+          if (!input.previousElementSibling.classList.contains("input-error")) {
+            removeError(input);
+          }
+        }
+        break;
+      case "cvv":
+        if (!input.value) {
+          input.classList.add("input-error");
         } else {
           input.classList.remove("input-error");
           if (!input.previousElementSibling.classList.contains("input-error")) {
