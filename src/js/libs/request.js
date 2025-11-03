@@ -22,17 +22,13 @@ export const $request = async (props) => {
         ...restProps
     });
 
+    const data = await response?.json();
+
     if (withoutResponse) {
         if (response.status === 200) {
             return true;
-        } else {
-            const data = await response?.json();
-
-            throwError(response?.status, data?.detail || data?.title);
         }
     }
-
-    const data = await response?.json();
 
     if (response?.status === 200) {
         return data;
