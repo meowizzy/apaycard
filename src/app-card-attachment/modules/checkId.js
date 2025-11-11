@@ -20,7 +20,9 @@ export const checkId = async () => {
     if (!id) {
         pageLoader.classList.add("d-none");
         rootContainer.classList.remove("d-none");
-        renderError(translate("errors.idIsNotEntered"));
+        renderError({
+            title: translate("errors.idIsNotEntered")
+        });
         return;
     }
 
@@ -52,7 +54,9 @@ export const checkId = async () => {
             }, extIdExpirationDate);
         }
     } catch (e) {
-        renderError(e.message);
+        renderError({
+            title: e.message
+        });
     } finally {
         pageLoader.classList.add("d-none");
         rootContainer.classList.remove("d-none");

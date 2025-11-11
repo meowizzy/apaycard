@@ -1,6 +1,6 @@
 .lp-button {
   padding: 16px 24px;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -11,6 +11,7 @@
   text-decoration: none;
   font-family: var(--primary-font);
   font-size: 16px;
+  font-weight: 500;
 
   &:before {
     content: "";
@@ -33,6 +34,11 @@
     &:before {
       display: block;
     }
+  }
+
+  &.fullWidth {
+    text-align: center;
+    width: 100%;
   }
 
   @media all and (max-width: 768px) {
@@ -107,15 +113,19 @@
   }
 
   &.secondary {
-    background-color: var(--color-white);
+    background-color: var(--color-background);
     color: var(--color-black);
-    transition: box-shadow var(--transition);
+    transition: background-color var(--transition);
     &:before {
       border: 2px solid var(--color-primary);
       border-bottom: 2px solid transparent;
     }
     &:hover {
-      box-shadow: inset 0 0 0 2px var(--color-primary);
+      background-color: rgba(var(--color-text-rgb), .2);
+    }
+
+    &:disabled {
+      color: var(--color-gray);
     }
   }
 }

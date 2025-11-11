@@ -3,7 +3,6 @@
   position: relative;
   z-index: 10;
   &__head {
-    background-color: var(--color-gray);
     border-radius: var(--radius-sm);
     &.active {
       #{$self}__arrow {
@@ -13,6 +12,12 @@
 
     & > #{$self}__item {
       padding: 12px;
+      border-radius: 50%;
+      background-color: var(--color-white);
+    }
+
+    & #{$self}__label {
+      display: none;
     }
   }
 
@@ -54,15 +59,18 @@
   }
 
   &__body {
-    @include сentering-x();
+    position: absolute;
+    min-width: 100px;
+    right: 0;
     top: calc(100% + 5px);
     opacity: 0;
     pointer-events: none;
     transition: var(--transition);
-    background-color: var(--color-gray);
-    border-bottom-left-radius: var(--radius-sm);
-    border-bottom-right-radius: var(--radius-sm);
+    background-color: var(--color-white);
+    border-radius: var(--radius-lg);
     overflow: hidden;
+    box-shadow: 1px 1px 10px -5px rgba(0,0,0,0.2);
+
     #{$self}__item {
       padding: 10px 14px;
       transition: background-color var(--transition);

@@ -2,6 +2,7 @@ export const setCountdown = (props) => {
   const {
     duration: initialDuration = 0,
     dest = null,
+    timeFormat,
     onFinish,
     onUpdate,
   } = props;
@@ -11,8 +12,11 @@ export const setCountdown = (props) => {
 
   function resolveDest() {
     if (!dest) return null;
+
     if (typeof dest === "string") return document.querySelector(dest);
+
     if (dest instanceof Node) return dest;
+
     return null;
   }
   const destNode = resolveDest();
@@ -26,7 +30,15 @@ export const setCountdown = (props) => {
   }
 
   function render() {
-    if (destNode) destNode.textContent = formatTime(timeLeft);
+    if (destNode) {
+      let formattedTime = formatTime(timeLeft);
+
+      if (timeFormat && typeof timeFormat === "function") {
+        formattedTime = timeFormat(formattedTime);
+      }
+
+      destNode.textContent = formattedTime;
+    }
   }
 
   function start(startFrom = timeLeft) {

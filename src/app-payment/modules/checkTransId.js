@@ -1,12 +1,13 @@
-import {renderError} from "../../js/helpers/renderError";
-import {translate} from "../../localization";
-import {showStep} from "../../js/helpers/showStep";
-import {$request} from "../../js/libs/request";
-import {setDetails, toggleDetails} from "./showStatus";
-import {showRoot} from "./showRoot";
-import {renderFinishStep} from "./renderFinishStep";
-import {SEARCH_PARAMS} from "../../js/app/constants";
-import {toastError} from "../../js/helpers/toastify";
+import { renderError } from "../../js/helpers/renderError";
+import { translate } from "../../localization";
+import { showStep } from "../../js/helpers/showStep";
+import { $request } from "../../js/libs/request";
+import { setDetails, toggleDetails } from "./showStatus";
+import { showRoot } from "./showRoot";
+import { renderFinishStep } from "./renderFinishStep";
+import { SEARCH_PARAMS } from "../../js/app/constants";
+import { toastError } from "../../js/helpers/toastify";
+import {showStepPayments} from "./showStep";
 
 export const checkTransId = () => {
   const transId = SEARCH_PARAMS.get("trans_id");
@@ -32,7 +33,7 @@ export const checkTransId = () => {
 
     try {
       const data = await $request({
-        url: `/web/v1/bills/card/check/visa/${transId}`
+        url: `/web/v1/bills/check/visa/${transId}`
       });
 
       if (data) {
@@ -54,7 +55,7 @@ export const checkTransId = () => {
 
           renderFinishStep(statusCode);
         } else {
-          showStep("timeout");
+          showStepPayments("timeout");
         }
       }
     } catch (e) {

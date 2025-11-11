@@ -1,12 +1,12 @@
-import { showStep } from "../../js/helpers/showStep";
 import { renderError } from "../../js/helpers/renderError";
 import { translate } from "../../localization";
 import { toastSuccess } from "../../js/helpers/toastify";
+import {showStepPayments} from "./showStep";
 
 export const renderFinishStep = (statusCode) => {
   switch (statusCode) {
     case "PAID":
-      showStep("success");
+      showStepPayments("success");
       toastSuccess(translate("success.paymentSuccess"));
       break;
     case "CANCELED":

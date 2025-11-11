@@ -1,3 +1,10 @@
-@include font-face("TTNormsPro", "../fonts/ttnorms/TTNormsPro-Regular", 400, normal, eot ttf woff woff2);
-@include font-face("TTNormsPro", "../fonts/ttnorms/TTNormsPro-Medium", 500, normal, eot ttf woff woff2);
-@include font-face("TTNormsPro", "../fonts/ttnorms/TTNormsPro-Bold", 700, normal, eot ttf woff woff2);
+@include font-face("Gilroy", "../fonts/gilroy/Gilroy-Black", 1000, normal, woff);
+@include font-face("Gilroy", "../fonts/gilroy/Gilroy-Heavy", 900, normal, woff);
+@include font-face("Gilroy", "../fonts/gilroy/Gilroy-ExtraBold", 800, normal, woff);
+@include font-face("Gilroy", "../fonts/gilroy/Gilroy-Bold", 700, normal, woff);
+@include font-face("Gilroy", "../fonts/gilroy/Gilroy-Semibold", 600, normal, woff);
+@include font-face("Gilroy", "../fonts/gilroy/Gilroy-Medium", 500, normal, woff);
+@include font-face("Gilroy", "../fonts/gilroy/Gilroy-Regular", 400, normal, woff);
+@include font-face("Gilroy", "../fonts/gilroy/Gilroy-Light", 300, normal, woff);
+@include font-face("Gilroy", "../fonts/gilroy/Gilroy-Ultralight", 200, normal, woff);
+@include font-face("Gilroy", "../fonts/gilroy/Gilroy-Thin", 100, normal, woff);

@@ -9,6 +9,7 @@ import { toastError } from "../../js/helpers/toastify";
 import { SEARCH_PARAMS } from "../../js/app/constants";
 import { formStepCard } from "./formStepCard";
 import { cvv } from "./cvv";
+import {showStepPayments} from "./showStep";
 
 let firstReq = false;
 
@@ -24,29 +25,31 @@ export const checkBillId = async (ctx = "") => {
   const billId = SEARCH_PARAMS.get("billId");
 
   if (!billId) {
-    // renderError("validateErrors.billIdNotEntered");
+    // renderError(
+    // "validateErrors.billIdNotEntered");
     // showRoot();
+
     return;
   }
 
   try {
-    const data = await $request({
-      url: `/web/v1/bills/check/${billId}`,
-    });
+    // const data = await $request({
+    //   url: `/web/v1/bills/check/${billId}`,
+    // });
 
-    // const data = {
-    //   merchantName: "123131",
-    //   amount: 123000,
-    //   status: {
-    //     code: "PENDING",
-    //   },
-    // };
+    const data = {
+      merchantName: "Oqtepa Lavash - Riviera",
+      amount: 123000,
+      status: {
+        code: "PENDING",
+      },
+    };
 
     if (data) {
       const detailsData = {
         title: data.merchantName,
         payment: billId,
-        amount: `${String(data.amount).replace(/\B(?=(\d{3})+(?!\d))/g, " ")} ${translate("fields.SUM")}`,
+        amount: `${String(data.amount).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}`,
       };
 
       if (!firstReq) {
@@ -66,7 +69,7 @@ export const checkBillId = async (ctx = "") => {
 
       if (statusCode === "PENDING") {
         if (!ctx) {
-          showStep("card");
+          showStepPayments("card");
           formStepCard();
           // cvv();
         }
@@ -84,7 +87,9 @@ export const checkBillId = async (ctx = "") => {
     firstReq = true;
   } catch (e) {
     toastError(e.message);
-    renderError(e.message);
+    renderError({
+      title: e.message
+    });
     toggleDetails(false);
   } finally {
     showRoot();

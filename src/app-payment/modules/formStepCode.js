@@ -1,13 +1,13 @@
 import { Otp } from "../../js/libs/otpClass";
 import { translate } from "../../localization";
 import { $request } from "../../js/libs/request";
-import { showStep } from "../../js/helpers/showStep";
 import { SEARCH_PARAMS } from "../../js/app/constants";
 import { checkBillId } from "./checkBillId";
 import { renderLoadingStep } from "./renderLoadingStep";
 import { toastError, toastSuccess } from "../../js/helpers/toastify";
 import { setCountdown } from "../../js/libs/countDown";
 import { formStepCard } from "./formStepCard";
+import { showStepPayments } from "./showStep";
 
 const resendCode = () => {
   sessionStorage.removeItem("countDown");
@@ -52,10 +52,9 @@ export const formStepCode = () => {
   const otpCodeInput = form.querySelector("input[name='otpValue']");
   const otpCodeField = otpCodeInput.closest(".form__field");
   const otpCodeLabel = otpCodeField.querySelector(".form__field-label");
-  const cancelButton = form.querySelector(".cancel");
-  const codeStep = document.querySelector("[data-step='code']");
-  const codeStepFormField = codeStep.querySelector(".form__field");
-  const resendButton = codeStep.querySelector(".resend");
+  const cancelButton = step.closest(".form").querySelector("[data-step-code='code'] .cancel");
+  const codeStepFormField = step.querySelector(".form__field");
+  const resendButton = step.querySelector(".resend");
   const countDown = sessionStorage.getItem("countDown");
   const countDownDuration = 60;
 
@@ -69,6 +68,7 @@ export const formStepCode = () => {
   const countDownInstance = setCountdown({
     duration: countDownDuration,
     dest: resendButton.children[0],
+    timeFormat: (time) => translate("buttons.resendTimeProgress", time),
     onFinish: onFinishCountDown,
   });
 
@@ -88,7 +88,7 @@ export const formStepCode = () => {
     e.preventDefault();
 
     codeStepFormField.classList.remove("form__field--error");
-    codeStep.querySelector("form").reset();
+    step.querySelector("form").reset();
 
     const codeStemFormFieldErrorMessage =
       codeStepFormField.querySelector(".error");
@@ -165,7 +165,7 @@ export const formStepCode = () => {
       const step = sessionStorage.getItem("step");
 
       if (step !== "code") {
-        showStep("code");
+        showStepPayments("code");
       }
 
       // isBlocked = true;
@@ -195,7 +195,7 @@ export const formStepCode = () => {
     window.removeEventListener("beforeunload", windowBeforeUnloadHandler);
     sessionStorage.clear();
 
-    showStep("card");
+    showStepPayments("card");
     formStepCard();
   };
 

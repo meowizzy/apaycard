@@ -1,33 +1,121 @@
 .form {
-  &__header-bot {
+  $this: &;
+
+  &__header-top {
     display: flex;
-    margin-top: 30px;
+    align-items: center;
+    justify-content: space-between;
 
-    &-col {
+    &-title {
+      font-size: 20px;
+      font-weight: 500;
+    }
+  }
+
+  &__header-row {
+    width: 100%;
+    padding: 8px;
+  }
+
+  &__header-merchant {
+    display: flex;
+
+    &-icon {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(236, 239, 245, 1);
+      flex-shrink: 0;
+      margin-right: 8px;
+      padding: 5px;
+      color: var(--color-gray);
+
+      svg, img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+    }
+
+    &-left {
       display: flex;
-      flex-direction: column;
-      width: calc(100% / 3);
-      padding-right: 20px;
+      align-items: center;
+    }
 
-      strong {
-        font-size: 20px;
-        margin-top: 4px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
+    &-title {
+      color: var(--color-gray);
+      font-size: 14px;
+      line-height: 18px;
+    }
 
-      &[data-status="PENDING"] strong {
-        color: #ffab00;
-      }
+    &-name {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 500;
+    }
+  }
 
-      &[data-status="PAID"] strong {
-        color: rgba(43, 188, 93, 1);
-      }
+  &__header-payment-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-      &[data-status="CANCELED"] strong {
-        color: rgba(255, 82, 82, 1);
+  &__header-col {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    &-name {
+      color: var(--color-gray);
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    &-value {
+      font-weight: 500;
+      line-height: 20px;
+    }
+  }
+
+  &__amount {
+    background-color: var(--color-white);
+    margin-top: 4px;
+    margin-bottom: 8px;
+    padding: 10px 16px;
+    border-radius: 8px 8px 24px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+
+    &-name {
+      font-size: 14px;
+      color: var(--color-gray);
+      line-height: 18px;
+    }
+
+    &-sum {
+      font-size: 36px;
+      font-weight: 700;
+
+      .currency {
+        font-size: 24px;
+        color: var(--color-gray);
       }
+    }
+  }
+
+  [data-details-type="status"] {
+    &[data-status="PENDING"] #{$this}__header-col-value {
+      color: var(--color-warning);
+    }
+
+    &[data-status="PAID"] #{$this}__header-col-value {
+      color: var(--color-primary);
+    }
+
+    &[data-status="CANCELED"] #{$this}__header-col-value {
+      color: var(--color-danger);
     }
   }
 }

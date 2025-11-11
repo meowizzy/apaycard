@@ -1,6 +1,6 @@
 :root {
   --initial-font: "Arial", "Helvetica", "sans-serif";
-  --font-family: "TTNormsPro", var(--initial-font);
+  --font-family: "Gilroy", var(--initial-font);
 
   --font-weight-r: 400;
   --font-weight-m: 500;
@@ -12,6 +12,7 @@
   --radius-sm: 10px;
   --radius-md: 12px;
   --radius-lg: 16px;
+  --radius-xl: 24px;
 
   --transition: .3s;
 }

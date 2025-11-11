@@ -5,6 +5,7 @@ import { SEARCH_PARAMS } from "../../js/app/constants";
 import { formValidate } from "../../js/helpers/validator";
 import { renderMerchantPhone } from "./renderMerchantPhone";
 import { formStepCode } from "./formStepCode";
+import {showStepPayments} from "./showStep";
 
 export const formStepCard = () => {
   const form = document.querySelector("[data-step='card'] form");
@@ -23,23 +24,23 @@ export const formStepCard = () => {
     sessionStorage.setItem("cardExpire", unFormattedCardExpire);
 
     try {
-      const data = await $request({
-        url: "/web/v1/bills/update",
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          billId,
-          expiry: unFormattedCardExpire,
-          pan: unFormattedCardNumber,
-          // cvc2: cvv ? cvv : undefined,
-        }),
-      });
+      // const data = await $request({
+      //   url: "/web/v1/bills/update",
+      //   method: "PUT",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     billId,
+      //     expiry: unFormattedCardExpire,
+      //     pan: unFormattedCardNumber,
+      //     // cvc2: cvv ? cvv : undefined,
+      //   }),
+      // });
 
-      // const data = {
-      //   ownerPhone: "+998901667739",
-      // };
+      const data = {
+        ownerPhone: "+998901667739",
+      };
 
       if (data) {
         if (data.formUrl) {
@@ -54,7 +55,7 @@ export const formStepCard = () => {
 
         sessionStorage.setItem("phone", data.ownerPhone);
         renderMerchantPhone(data.ownerPhone);
-        showStep("code");
+        showStepPayments("code");
         formStepCode();
         form.removeEventListener("submit", onClickSubmit);
       }
@@ -73,11 +74,11 @@ export const formStepCard = () => {
     const inputs = form.querySelectorAll("input");
     // const cvv = formData.get("cvv");
 
-    formValidate(inputs);
+    // formValidate(inputs);
 
     const hasError = form.querySelector(".form__field--error");
 
-    if (!hasError) {
+    if (!false) {
       sendData({
         cardNumber,
         cardExpire,
