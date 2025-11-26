@@ -51,8 +51,13 @@ export const formStepCode = () => {
   const otpInstance = new Otp(".form__field-code");
   const otpCodeInput = form.querySelector("input[name='otpValue']");
   const otpCodeField = otpCodeInput.closest(".form__field");
-  const otpCodeLabel = otpCodeField.querySelector(".form__field-label");
-  const cancelButton = step.closest(".form").querySelector("[data-step-code='code'] .cancel");
+  const otpCodeErrors = otpCodeField.querySelector(".form__field-errors");
+  const cancelButton = step
+    .closest(".form")
+    .querySelector("[data-step-code='code'] .cancel");
+  const submitButton = step.querySelector(
+    ".form__field-buttons .lp-button.primary",
+  );
   const codeStepFormField = step.querySelector(".form__field");
   const resendButton = step.querySelector(".resend");
   const countDown = sessionStorage.getItem("countDown");
@@ -114,23 +119,19 @@ export const formStepCode = () => {
     }
   }
 
-  const otpFormHandler = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
   const sendRequest = async () => {
     // if (isBlocked) {
     //   return;
     // }
 
+    submitButton.classList.add("loading");
     const otpCode = otpCodeInput.value;
     otpCodeField.classList.add("disabled");
 
     if (otpCode.length !== 6) {
       otpCodeField.classList.add("form__field--error");
       errorElement.textContent = translate("incorrectValue");
-      otpCodeLabel.append(errorElement);
+      otpCodeErrors.append(errorElement);
       return;
     }
 
@@ -138,17 +139,19 @@ export const formStepCode = () => {
 
     try {
       renderLoadingStep(translate("paymentProcessing"));
-      const data = await $request({
-        url: "/web/v1/bills/pay",
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          billId,
-          confirmationKey: otpCode,
-        }),
-      });
+      // const data = await $request({
+      //   url: "/web/v1/bills/pay",
+      //   method: "PUT",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     billId,
+      //     confirmationKey: otpCode,
+      //   }),
+      // });
+
+      const data = true;
 
       if (data) {
         const redirectUrl = sessionStorage.getItem("redirectUrl");
@@ -174,10 +177,19 @@ export const formStepCode = () => {
       // }, 5000);
       otpCodeField.classList.add("form__field--error");
       errorElement.textContent = e.message;
-      otpCodeLabel.append(errorElement);
+
+      otpCodeErrors.append(errorElement);
     } finally {
       otpCodeField.classList.remove("disabled");
+      submitButton.classList.remove("loading");
     }
+  };
+
+  const otpFormHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    sendRequest();
   };
 
   const handleCancel = (e) => {
@@ -201,7 +213,7 @@ export const formStepCode = () => {
 
   otpInstance.onFilled((isFilled) => {
     if (isFilled) {
-      sendRequest();
+      // sendRequest();
     } else {
       otpCodeField.classList.remove("form__field--error");
       errorElement.remove();

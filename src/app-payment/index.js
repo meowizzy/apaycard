@@ -11,6 +11,4 @@ export const appPayment = () => {
   sessionNotFinished();
   checkTransId();
   checkBillId();
-  // formStepCard();
-  // formStepCode();
 };

@@ -2,10 +2,11 @@ import { showRoot } from "./showRoot";
 import { formStepCard } from "./formStepCard";
 import { formStepCode } from "./formStepCode";
 import { showStepPayments } from "./showStep";
+import { checkBillId } from "./checkBillId";
 
 const steps = {
-  "card": formStepCard,
-  "code": formStepCode,
+  card: formStepCard,
+  code: formStepCode,
 };
 
 export const sessionNotFinished = () => {
@@ -15,6 +16,8 @@ export const sessionNotFinished = () => {
   if (stepCode || countDown) {
     showRoot();
     showStepPayments(stepCode);
-    steps[stepCode]();
+    if (steps[stepCode]) {
+      steps[stepCode]();
+    }
   }
 };

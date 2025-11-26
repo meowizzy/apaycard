@@ -9,7 +9,7 @@ import { toastError } from "../../js/helpers/toastify";
 import { SEARCH_PARAMS } from "../../js/app/constants";
 import { formStepCard } from "./formStepCard";
 import { cvv } from "./cvv";
-import {showStepPayments} from "./showStep";
+import { showStepPayments } from "./showStep";
 
 let firstReq = false;
 
@@ -18,9 +18,9 @@ export const checkBillId = async (ctx = "") => {
   const countdown = sessionStorage.getItem("countDown");
   const sessionNotFinished = !!step && !!countdown;
 
-  if (sessionNotFinished) {
-    return;
-  }
+  // if (sessionNotFinished) {
+  //   return;
+  // }
 
   const billId = SEARCH_PARAMS.get("billId");
 
@@ -41,7 +41,7 @@ export const checkBillId = async (ctx = "") => {
       merchantName: "Oqtepa Lavash - Riviera",
       amount: 123000,
       status: {
-        code: "PENDING",
+        code: "CREATED",
       },
     };
 
@@ -68,7 +68,7 @@ export const checkBillId = async (ctx = "") => {
       toggleDetails();
 
       if (statusCode === "PENDING") {
-        if (!ctx) {
+        if (!ctx && !sessionNotFinished) {
           showStepPayments("card");
           formStepCard();
           // cvv();
@@ -88,7 +88,7 @@ export const checkBillId = async (ctx = "") => {
   } catch (e) {
     toastError(e.message);
     renderError({
-      title: e.message
+      title: e.message,
     });
     toggleDetails(false);
   } finally {
