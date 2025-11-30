@@ -1,0 +1,30 @@
+<div class="form__step" data-step="code">
+    <div class="form__body-header">
+        <div class="form__body-title">
+            <span>{{smsConfirmation}}</span>
+        </div>
+        <div class="form__body-desc"></div>
+    </div>
+    <form class="form__actions">
+        <div class="form__group">
+            <div class="form__field">
+                <div class="form__field-code">
+                    <label>
+                        <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
+                        <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
+                        <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
+                        <span class="separator"></span>
+                        <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
+                        <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
+                        <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
+                    </label>
+                </div>
+                <div class="form__field-errors"></div>
+            </div>
+        </div>
+        <div class="form__field form__field-buttons">
+            {{> ../../template-parts/button title=continue selectors="primary fullWidth"}}
+            {{> ../../template-parts/button selectors="secondary resend fullWidth"}}
+        </div>
+    </form>
+</div>

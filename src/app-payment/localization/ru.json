@@ -17,7 +17,8 @@
   "support": "Служба поддержки",
   "checkAgain": "Проверить повторно",
   "buttons": {
-    "resendTimeProgress": "Повторить через: [code] сек."
+    "resendTimeProgress": "Повторить через: [code] сек.",
+    "complete": "Завершить"
   },
   "statuses": {
     "PAID": "Успешно",

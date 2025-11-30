@@ -1,6 +1,6 @@
 import { translate } from "../../localization";
-import {hideNumber} from "../../js/helpers/hideNumber";
-import {normalizePhoneNumber} from "../../js/helpers/normalizePhoneNumber";
+import { hideNumber } from "../../js/helpers/hideNumber";
+import { normalizePhoneNumber } from "../../js/helpers/normalizePhoneNumber";
 
 const codeStep = document.querySelector("[data-step='code']");
 const codeStepFormDesc = codeStep.querySelector(".form__body-desc");

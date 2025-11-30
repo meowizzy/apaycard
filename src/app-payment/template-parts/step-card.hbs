@@ -1,0 +1,43 @@
+<div class="form__step" data-step="card">
+    <div class="form__step-title">Данные карты</div>
+    <div class="form__body-error d-none"></div>
+    <form class="form__actions">
+        <div class="form__group">
+            <div class="form__field">
+                <label>
+                <span class="form__field-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <use xlink:href="#humo"></use>
+                    </svg>
+                </span>
+                    <div class="form__field-wrap">
+                        <span class="form__field-name">Номер карты</span>
+                        <input type="text" name="cardNumber" placeholder="0000 0000 0000 0000" class="input-card">
+                    </div>
+                </label>
+            </div>
+            <div class="form__field">
+                <label>
+                    <div class="form__field-wrap">
+                        <span class="form__field-name">Срок</span>
+                        <input type="text" name="cardExpire" placeholder="{{mmYY}}" class="input-exp">
+                    </div>
+                </label>
+            </div>
+            <div class="form__field form__field-cvv">
+                <label>
+                    <div class="form__field-wrap">
+                        <span class="form__field-name">CVV</span>
+                        <input type="text" name="cvv" placeholder="000" size="3" maxlength="3" class="input-cvv">
+                    </div>
+                </label>
+            </div>
+        </div>
+        <div class="form__field" style="text-align: center;">
+            {{> ../../template-parts/button title=continue selectors="primary fullWidth"}}
+        </div>
+    </form>
+    <div class="form__publicOffer">
+        {{{publicOffer}}}
+    </div>
+</div>

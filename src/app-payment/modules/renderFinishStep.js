@@ -3,7 +3,7 @@ import { translate } from "../../localization";
 import { toastSuccess } from "../../js/helpers/toastify";
 import { showStepPayments } from "./showStep";
 
-export const renderFinishStep = (statusCode) => {
+export const renderFinishStep = (statusCode, paymentDetails) => {
   switch (statusCode) {
     case "PAID":
       showStepPayments("success");
@@ -11,7 +11,11 @@ export const renderFinishStep = (statusCode) => {
       break;
     case "CANCELED":
       renderError({
-        title: translate("errors.paymentError"),
+        // title: translate("errors.paymentError"),
+        ///////////// ЗАКОНЧИЛ НА ЭТОМ
+        heading: "Сумма оплаты",
+        title: paymentDetails.sum,
+        subtitle: paymentDetails.cardNumber,
       });
       break;
   }

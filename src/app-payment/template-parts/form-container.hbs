@@ -19,7 +19,7 @@
                 </svg>
             </div>
             <div class="form__header-bot d-none">
-                <div class="form__header-row">
+                <div class="form__header-row p-y">
                     <div class="form__header-merchant">
                         <div class="form__header-merchant-left">
                         <span class="form__header-merchant-icon">
@@ -29,7 +29,7 @@
                         </span>
                             <div class="form__header-col">
                                 <span class="form__header-col-name">Организация</span>
-                                <span class="form__header-col-value">{{title}}</span>
+                                <span class="form__header-col-value">[code]</span>
                             </div>
                         </div>
                         <div class="form__header-merchant-right"></div>
@@ -47,129 +47,19 @@
                 </div>
             </div>
         </div>
+        <div class="form__header-step" data-step-code="loading"></div>
+        <div class="form__header-step" data-step-code="success"></div>
+        <div class="form__header-step" data-step-code="error"></div>
     </div>
     <div class="form__amount" data-details-type="amount">
         <span class="form__amount-name">{{fields.paymentAmount}}</span>
         <span class="form__amount-sum">[code]</span>
     </div>
     <div class="form__body">
-        <div class="form__step" data-step="card">
-            <div class="form__step-title">Данные карты</div>
-            <div class="form__body-error d-none"></div>
-            <form class="form__actions">
-                <div class="form__group">
-                    <div class="form__field">
-                        <label>
-                            <span class="form__field-icon">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <use xlink:href="#humo"></use>
-                                </svg>
-                            </span>
-                            <div class="form__field-wrap">
-                                <span class="form__field-name">Номер карты</span>
-                                <input type="text" name="cardNumber" placeholder="0000 0000 0000 0000" class="input-card">
-                            </div>
-                        </label>
-                    </div>
-                    <div class="form__field">
-                        <label>
-                            <div class="form__field-wrap">
-                                <span class="form__field-name">Срок</span>
-                                <input type="text" name="cardExpire" placeholder="{{mmYY}}" class="input-exp">
-                            </div>
-                        </label>
-                    </div>
-                    <div class="form__field form__field-cvv">
-                        <label>
-                            <div class="form__field-wrap">
-                                <span class="form__field-name">CVV</span>
-                                <input type="text" name="cvv" placeholder="000" size="3" maxlength="3" class="input-cvv">
-                            </div>
-                        </label>
-                    </div>
-                </div>
-                <div class="form__field" style="text-align: center;">
-                    {{> ../../template-parts/button title=continue selectors="primary fullWidth"}}
-                </div>
-            </form>
-            <div class="form__publicOffer">
-                {{{publicOffer}}}
-            </div>
-        </div>
-        <div class="form__step" data-step="code">
-            <div class="form__body-header">
-                <div class="form__body-title">
-                    <span>{{smsConfirmation}}</span>
-                </div>
-                <div class="form__body-desc"></div>
-            </div>
-            <form class="form__actions">
-                <div class="form__group">
-                    <div class="form__field">
-                        <div class="form__field-code">
-                            <label>
-                                <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
-                                <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
-                                <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
-                                <span class="separator"></span>
-                                <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
-                                <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
-                                <input type="text" maxlength="1" autocomplete="one-time-code" inputmode="numeric"/>
-                            </label>
-                        </div>
-                        <div class="form__field-errors"></div>
-                    </div>
-                </div>
-                <div class="form__field form__field-buttons">
-                    {{> ../../template-parts/button title=continue selectors="primary fullWidth"}}
-                    {{> ../../template-parts/button selectors="secondary resend fullWidth"}}
-                </div>
-            </form>
-        </div>
-        <div class="form__step" data-step="success">
-            <div class="form-container">
-                <div class="form-container__icon">
-                    <img src="./assets/payment-success.svg" alt="error-icon">
-                </div>
-                <div class="form-container__info">
-                    <div class="form-container__info-heading"></div>
-                    <div class="form-container__info-title form-container__info-title--sm">
-                        {{{success.paymentSuccess}}}
-                    </div>
-                    <div class="form-container__info-subtitle"></div>
-                </div>
-            </div>
-        </div>
-        <div class="form__step" data-step="error">
-            <div class="form-container">
-                <div class="form-container__icon">
-                    <img src="./assets/payment-error.svg" alt="error-icon">
-                </div>
-                <div class="form-container__info">
-                    <div class="form-container__info-heading"></div>
-                    <div class="form-container__info-title"></div>
-                    <div class="form-container__info-subtitle"></div>
-                </div>
-            </div>
-        </div>
-        <div class="form__step" data-step="timeout">
-            <div class="form-container">
-                <svg width="40" height="40" viewBox="0 0 20 20">
-                    <use xlink:href="#timeout"/>
-                </svg>
-                <div class="form-container__title">
-                    <span>{{errors.paymentStatusTimedOut}}</span>
-                </div>
-                <button class="lp-button primary bold">{{checkAgain}}</button>
-            </div>
-        </div>
-        <div class="form__step" data-step="loading">
-            <div class="form-container">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <use xlink:href="#spinner"/>
-                </svg>
-                <strong class="form-container__message">[code]</strong>
-            </div>
-        </div>
+        {{> step-card }}
+        {{> step-code }}
+        {{> step-success }}
+        {{> step-error }}
+        {{> step-loading }}
     </div>
 </div>

@@ -1,8 +1,11 @@
-export const showStep = (stepCode = sessionStorage.getItem("step") || "card") => {
+export const showStep = (stepCode, persist = false) => {
     const steps = document.querySelectorAll("[data-step]");
     const step = document.querySelector(`[data-step="${stepCode}"]`);
+    const $form = document.querySelector(".form");
 
-    if (stepCode !== "error") {
+    $form.dataset.currentStep = stepCode;
+
+    if (stepCode && persist) {
         sessionStorage.setItem("step", stepCode);
     }
 

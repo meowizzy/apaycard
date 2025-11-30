@@ -15,6 +15,10 @@
   &__header-row {
     width: 100%;
     padding: 8px;
+
+    &.p-y {
+      padding: 8px 0;
+    }
   }
 
   &__header-merchant {
@@ -116,6 +120,40 @@
 
     &[data-status="CANCELED"] #{$this}__header-col-value {
       color: var(--color-danger);
+    }
+  }
+
+  &[data-current-step="code"] {
+    .form__body {
+      min-height: 0;
+    }
+  }
+
+  &[data-current-step="success"],
+  &[data-current-step="error"] {
+    [data-step-code="card"] {
+      display: block !important;
+
+      .form__header-top, .form__header-payment-info {
+        display: none;
+      }
+    }
+  }
+
+  &[data-current-step="code"],
+  &[data-current-step="loading"],
+  &[data-current-step="success"],
+  &[data-current-step="error"] {
+    .form__amount {
+      display: none;
+    }
+
+    .form__header {
+      border-radius: 24px;
+    }
+
+    .form__body {
+      margin-top: 8px;
     }
   }
 }

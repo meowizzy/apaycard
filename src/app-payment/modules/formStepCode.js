@@ -8,6 +8,7 @@ import { toastError, toastSuccess } from "../../js/helpers/toastify";
 import { setCountdown } from "../../js/libs/countDown";
 import { formStepCard } from "./formStepCard";
 import { showStepPayments } from "./showStep";
+import {renderMerchantPhone} from "./renderMerchantPhone";
 
 const resendCode = () => {
   sessionStorage.removeItem("countDown");
@@ -35,14 +36,20 @@ const resendCode = () => {
   });
 };
 
-export const formStepCode = () => {
+export const formStepCode = (ctx = null) => {
   const step = document.querySelector("[data-step='code']");
+  const merchantPhone = sessionStorage.getItem("phone");
   const form = step.querySelector("form");
   const errorElement = document.createElement("span");
-  errorElement.classList.add("error");
   const billId = SEARCH_PARAMS.get("billId");
 
+  errorElement.classList.add("error");
+
   let isBlocked = false;
+
+  if (merchantPhone && ctx === "SESSION_NOT_FINISHED") {
+    renderMerchantPhone(merchantPhone);
+  }
 
   if (!form) {
     return;
@@ -119,14 +126,24 @@ export const formStepCode = () => {
     }
   }
 
+  const resets = () => {
+    countDownInstance.stop();
+    otpInstance.destroy();
+    cancelButton.removeEventListener("click", handleCancel);
+    form.removeEventListener("submit", otpFormHandler);
+    window.removeEventListener("beforeunload", windowBeforeUnloadHandler);
+    sessionStorage.clear();
+  };
+
   const sendRequest = async () => {
     // if (isBlocked) {
     //   return;
     // }
 
     submitButton.classList.add("loading");
-    const otpCode = otpCodeInput.value;
     otpCodeField.classList.add("disabled");
+
+    const otpCode = otpCodeInput.value;
 
     if (otpCode.length !== 6) {
       otpCodeField.classList.add("form__field--error");
@@ -151,13 +168,19 @@ export const formStepCode = () => {
       //   }),
       // });
 
-      const data = true;
+      const data = new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(true);
+        }, 2000);
+      });
 
       if (data) {
         const redirectUrl = sessionStorage.getItem("redirectUrl");
 
+        resets();
+
         setTimeout(() => {
-          checkBillId("SMS_INPUT");
+          checkBillId("SMS_INPUT", "CANCELED");
 
           if (redirectUrl) {
             location.href = redirectUrl;
@@ -200,12 +223,7 @@ export const formStepCode = () => {
       errorElement.remove();
     }
 
-    countDownInstance.stop();
-    otpInstance.destroy();
-    cancelButton.removeEventListener("click", handleCancel);
-    form.removeEventListener("submit", otpFormHandler);
-    window.removeEventListener("beforeunload", windowBeforeUnloadHandler);
-    sessionStorage.clear();
+    resets();
 
     showStepPayments("card");
     formStepCard();

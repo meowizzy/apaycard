@@ -7,6 +7,12 @@
   }
 }
 
+.page-loader {
+  svg {
+    color: var(--color-primary);
+  }
+}
+
 body {
   color: var(--color-secondary);
   display: flex;

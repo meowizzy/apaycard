@@ -10,10 +10,11 @@ import { SEARCH_PARAMS } from "../../js/app/constants";
 import { formStepCard } from "./formStepCard";
 import { cvv } from "./cvv";
 import { showStepPayments } from "./showStep";
+import { sessionNotFinished as sessionNotFinishedFn } from "./sessionNotFinished";
 
 let firstReq = false;
 
-export const checkBillId = async (ctx = "") => {
+export const checkBillId = async (ctx = "", status = "") => {
   const step = sessionStorage.getItem("step");
   const countdown = sessionStorage.getItem("countDown");
   const sessionNotFinished = !!step && !!countdown;
@@ -37,40 +38,41 @@ export const checkBillId = async (ctx = "") => {
     //   url: `/web/v1/bills/check/${billId}`,
     // });
 
-    const data = {
-      merchantName: "Oqtepa Lavash - Riviera",
-      amount: 123000,
-      status: {
-        code: "CREATED",
-      },
-    };
+    const data = await new Promise(resolve => {
+      setTimeout(() => {
+        resolve({
+          merchantName: "Oqtepa Lavash - Riviera",
+          amount: 123000,
+          status: {
+            code: status || "CREATED",
+          },
+        });
+      }, 2000);
+    });
 
     if (data) {
+      sessionNotFinishedFn();
+
       const detailsData = {
         title: data.merchantName,
         payment: billId,
         amount: `${String(data.amount).replace(/\B(?=(\d{3})+(?!\d))/g, " ")}`,
       };
 
-      if (!firstReq) {
-        setDetails(detailsData);
-      }
-
       const statusCode =
         data.status.code === "CREATED" ? "PENDING" : data.status.code;
 
       setDetails({
+        ...detailsData,
         status: {
           code: statusCode,
           message: translate(`statuses.${statusCode}`),
         },
       });
-      toggleDetails();
 
       if (statusCode === "PENDING") {
         if (!ctx && !sessionNotFinished) {
           showStepPayments("card");
-          formStepCard();
           // cvv();
         }
 

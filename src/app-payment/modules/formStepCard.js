@@ -4,13 +4,14 @@ import { $request } from "../../js/libs/request";
 import { SEARCH_PARAMS } from "../../js/app/constants";
 import { formValidate } from "../../js/helpers/validator";
 import { renderMerchantPhone } from "./renderMerchantPhone";
-import { formStepCode } from "./formStepCode";
 import {showStepPayments} from "./showStep";
 
 export const formStepCard = () => {
   const form = document.querySelector("[data-step='card'] form");
   const submitButton = form.querySelector(".lp-button");
   const billId = SEARCH_PARAMS.get("billId");
+
+  console.log("test123");
 
   const sendData = async (data) => {
     submitButton.classList.add("loading");
@@ -55,8 +56,7 @@ export const formStepCard = () => {
 
         sessionStorage.setItem("phone", data.ownerPhone);
         renderMerchantPhone(data.ownerPhone);
-        showStepPayments("code");
-        formStepCode();
+        showStepPayments("code", true);
         form.removeEventListener("submit", onClickSubmit);
       }
     } catch (e) {
